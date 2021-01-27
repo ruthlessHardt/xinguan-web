@@ -1,3 +1,6 @@
+# 新冠-物资管理系统（前端）
+# vue+element-UI
+
 # default
 
 ## Project setup
