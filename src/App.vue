@@ -1,19 +1,27 @@
 <template>
   <div id="app">
-<!--      <Home/>-->
-      <layout></layout>
+      <login v-if="loginInfo===''"></login>
+      <layout v-else-if="loginInfo!==''"></layout>
   </div>
 </template>
 
 <script>
 import Home from "./layout/Home";
 import layout from "./layout/layout.vue"
+import login from './views/login/login'
 export default {
   name: 'app',
   components: {
     // Home
-      layout
-  }
+      layout,
+      login
+  },
+    data(){
+      return {
+        loginInfo:localStorage.getItem("loginInfos")!=''?'':localStorage.getItem("loginInfos"),
+          // login:true,
+      }
+    },
 }
 </script>
 

@@ -399,7 +399,7 @@
                 }
             }).then(res=>{
                 // console.log(res.data);
-                console.log(res.data.trend);
+                // console.log(res.data.trend);
                 this.olddata = res.data.trend;
                 this.dataInfo = res.data;
                 var oldSerise = [];
@@ -487,7 +487,7 @@
                 let data = JSON.parse(res.data.data);
                 this.dataInfo2 = data;
                 this.tableData = data.areaTree[0].children;
-                // console.log(this.tableData)
+                console.log(this.tableData)
                 this.dataInfo2.areaTree = data.areaTree[0];
                 var myChartContainer = document.getElementById('myChartChina');
                 var myChartContainer1= document.getElementById('myChartChina1');

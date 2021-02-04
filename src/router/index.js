@@ -11,6 +11,11 @@ const router = new VueRouter({
     mode:"history",
     // 5.2 配置路由对象数组
     routes: [
+        {
+            name:"login",
+            path:"/login",
+            component:()=>import('@/views/login/login.vue')
+        },
         //主页
         {
             name:"layout",
@@ -51,5 +56,21 @@ const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
     return originalPush.call(this, location).catch(err => err)
 }
+
+// router.beforeEach((to, from, next) => {
+//     if (to.path === '/login') {
+//         next();
+//     } else {
+//         let token = localStorage.getItem('Authorization');
+//
+//         if (token === 'null' || token === '') {
+//             next('/login');
+//         } else {
+//             next();
+//         }
+//     }
+// });
+
+
 // 6、导出路由对象
 export default router;

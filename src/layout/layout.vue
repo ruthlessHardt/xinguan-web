@@ -16,7 +16,7 @@
               </span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item icon="el-icon-switch-button">个人资料</el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-switch-button">注销</el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-switch-button" @click.stop="logout">注销</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </el-header>
@@ -128,7 +128,10 @@
                 }else if(id=='2-1'){
                     this.$router.push('/materialIn');
                 }
-            }
+            },
+            logout(){
+                this.$router.push("/login");
+            },
         },
         mounted() {
             //阿里健康-疫情api
