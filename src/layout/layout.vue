@@ -33,7 +33,7 @@
                 >
                     <el-menu-item index="0" @click="toHome">
                         <i class="el-icon-setting"></i>
-                        <span slot="title">首页</span>
+                        <span slot="title">全国疫情</span>
                     </el-menu-item>
                     <el-submenu index="1">
                         <template slot="title" @click="toManage">
