@@ -16,7 +16,7 @@
               </span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item icon="el-icon-switch-button">个人资料</el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-switch-button" @click.stop="logout">注销</el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-switch-button"><span @click="logout">注销</span></el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </el-header>
@@ -130,7 +130,8 @@
                 }
             },
             logout(){
-                this.$router.push("/login");
+                localStorage.removeItem("loginInfos");
+                location.reload();
             },
         },
         mounted() {
