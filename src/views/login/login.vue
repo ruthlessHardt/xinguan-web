@@ -8,8 +8,8 @@
                            <label for="username">用户名</label><br><br>
                            <input name="username" id="username" class="input" type="text" v-model="loginInfo.username"></input>
                            <br><br><br>
-                           <label for="username">密码</label><br><br>
-                           <input name="username" id="password" class="input" type="password" v-model="loginInfo.password"></input>
+                           <label for="password">密码</label><br><br>
+                           <input name="password" id="password" class="input" type="password" v-model="loginInfo.password"></input>
                            <br><br>
                            <el-button type="primary" round @click="login">登录</el-button>
                        </div>
@@ -30,6 +30,8 @@
             </div>
             <div class="tip">
                 <el-link type="success">我们一定会战胜疫情的！中国加油！</el-link>
+                <br>
+                <el-link type="warning" style="font-weight: 700">@李文涛liwentao</el-link>
             </div>
 
         </div>
@@ -48,17 +50,47 @@
         },
         methods:{
             login(){
-              if(this.loginInfo.username!=''&&this.loginInfo.password!=''){
-                  this.$notify({
-                      title: '提示',
-                      message: '登陆成功',
-                      type: 'success'
-                  });
-                  localStorage.setItem("loginInfos",'123qweopasd9213');
-                  location.reload();
-              }
+                if(this.loginInfo.username===''){
+                    this.$message({
+                        message: '您的用户名为空哦！',
+                        type: 'error',
+                        duration:'5000'
+                    });
+                }else if(this.loginInfo.password===''){
+                    this.$message({
+                        message: '您的密码没输哦！',
+                        type: 'error',
+                        duration:'5000'
+                    });
+                }else if(this.loginInfo.username!=='jojo'||this.loginInfo.password!=='123456'){
+                    this.$message({
+                        message: '您输入的用户名或密码不对鸭！',
+                        type: 'warning',
+                        duration:'5000'
+                    });
+                }else if(this.loginInfo.username==='jojo'&&this.loginInfo.password==='123456'){
+                    /**
+                     * 这里进行后台验证
+                     */
+                    localStorage.setItem("loginInfo",this.loginInfo.username+this.loginInfo.password+"123123jvkjasbdasldn123");
+                    this.$router.push('/layout');
+                    this.$message({
+                        message:'您已成功着陆了！',
+                        type:'success',
+                    });
+                }
+
+              // if(this.loginInfo.username!=''&&this.loginInfo.password!=''){
+              //     this.$notify({
+              //         title: '提示',
+              //         message: '登陆成功',
+              //         type: 'success'
+              //     });
+              //     localStorage.setItem("loginInfos",'123qweopasd9213');
+              //     location.reload();
+              // }
             },
-        }
+        },
     }
 </script>
 

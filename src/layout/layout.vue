@@ -10,13 +10,14 @@
                 <i class="el-icon-s-fold" v-if="!isCollapse"></i>
             </div>
             <!-- 下拉菜单 -->
-            <el-dropdown>
+            <el-dropdown @command="handleCommand">
               <span class="el-dropdown-link">
                 <i class="el-icon-user el-icon--left"></i>
               </span>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item icon="el-icon-switch-button">个人资料</el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-switch-button"><span @click="logout">注销</span></el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-switch-button" command="a">个人资料</el-dropdown-item>
+<!--                    <el-dropdown-item icon="el-icon-switch-button" command="logout"><span @click="logout">注销</span></el-dropdown-item>-->
+                    <el-dropdown-item icon="el-icon-switch-button" command="e">注销</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </el-header>
@@ -100,7 +101,7 @@
     export default {
         data(){
             return {
-                isCollapse:false,
+                isCollapse:true,
                 logo:'XinGuan',
                 loading:true,
             }
@@ -129,9 +130,16 @@
                     this.$router.push('/materialIn');
                 }
             },
-            logout(){
-                localStorage.removeItem("loginInfos");
-                location.reload();
+            handleCommand(command) {
+                if(command==='e'){
+                    this.$message({
+                        message:'注销成功了哟！',
+                        type:'success',
+                        duration:'2000'
+                    });
+                    this.$router.push('/login');
+                    localStorage.removeItem("loginInfo");
+                }
             },
         },
         mounted() {

@@ -1,72 +1,96 @@
+
 <template>
     <div id="home" v-loading="loading" fullscreen
          element-loading-background="rgba(0, 0, 0, 0.8)"
          v-loading.fullscreen.lock="fullscreenLoading">
-        <div>
-            <span style="text-align: center;font-size: 30px;font-family:华文琥珀">
-            XINGUAN
-            </span>
-            <span>统筹管理物资</span>
-        </div>
+
         <!--轮播图-->
-        <el-carousel :interval="4000"  height="250px">
-            <el-carousel-item v-for="(item,index) in carousels" :key="index">
-                <h1 class="medium">{{item}}</h1>
-                <div v-for="(item2,index2) in desc" :key="index2">
-                    <h4 class="medium">{{index==index2?item2:''}}</h4>
+        <div class="carousel">
+            <el-carousel :interval="4000"  height="250px" style="width: 80%;">
+                <el-carousel-item v-for="(item,index) in carousels" :key="index">
+                    <h1 class="medium">{{item}}</h1>
+                    <div v-for="(item2,index2) in desc" :key="index2">
+                        <h4 class="medium">{{index==index2?item2:''}}</h4>
+                    </div>
+                </el-carousel-item>
+            </el-carousel>
+        </div>
+
+        <br><br>
+        <div class="container">
+            <div class="containerItem">
+                <div>
+                    <span style="text-align: center;font-size: 30px;font-family:华文琥珀">XINGUAN </span>
+                    <span>物资统筹管理</span>
+                    <span style="padding-left: 2%;font-weight: 700">@李文涛liwentao</span>
                 </div>
-            </el-carousel-item>
-        </el-carousel>
-        <!--  -->
-        <br>
-        <el-row :gutter="20">
-            <el-col :span="8">
-                <el-calendar v-model="value"></el-calendar>
-            </el-col>
-            <el-col :span="7" style="background-color: #a3d2ca">
-                <el-card>
-                    <el-collapse  v-model="activeName" accordion>
-                        <el-collapse-item title="一致性 Consistency" name="1">
-                            <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-                            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
-                        </el-collapse-item>
-                        <el-collapse-item title="反馈 Feedback" name="2">
-                            <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
-                            <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
-                        </el-collapse-item>
-                        <el-collapse-item title="效率 Efficiency" name="3">
-                            <div>简化流程：设计简洁直观的操作流程；</div>
-                            <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-                            <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
-                        </el-collapse-item>
-                        <el-collapse-item title="可控 Controllability" name="4">
-                            <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
-                            <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
-                        </el-collapse-item>
-                    </el-collapse>
-                </el-card>
-            </el-col>
-            <el-col :span="8">
-                <el-card>
-                    <div id="myChart1" style="width: 500px;height: 500px;"></div>
-                </el-card>
-            </el-col>
-        </el-row>
-        <br>
-        <el-row :gutter="20">
-            <el-col :span="10">
-                <div id="myChart2" style="width:100%;height:850px;"></div>
-            </el-col>
-        </el-row>
-
-
-
-
+                <br>
+                <span style="float: left;font-size: 30px;font-weight: 300">总览</span>
+                <div class="contents">
+                    <el-card class="card" shadow="never">
+                        <div class="dataNum numColor">
+                            {{waitting}}
+                        </div>
+                        <span>待处理</span>
+                    </el-card>
+                    <el-col :span="1"></el-col>
+                    <el-card class="card" shadow="never">
+                        <div class="dataNum numColor1">
+                            {{waitting1}}
+                        </div>
+                        <span>待办理</span>
+                    </el-card>
+                    <el-col :span="1"></el-col>
+                    <el-card class="card" shadow="never">
+                        <div class="dataNum numColor2">
+                            {{waitting2}}
+                        </div>
+                        <span>待处理</span>
+                    </el-card>
+                </div>
+                <br><br>
+                <span style="float: left;font-size: 30px;font-weight: 300">我的申请</span>
+                <div class="contents">
+                    <el-card class="card1" shadow="never">
+                        <div class="application">
+                            <div style="float: left;width: 50%">
+                                <div>
+                                    <span style="font-weight: 700;font-size: 20px;">Mini</span><br>
+                                    <span style="font-size: 14px;color: #6c757d">申请于{{dateTime}}</span>
+                                </div>
+                                <div style="width: 100%">
+                                    <el-progress :percentage="20"></el-progress>
+                                </div>
+                            </div>
+                            <div style="margin-top: 1%;float: right;padding-right: 2%">
+                                <el-button size="medium"  plain round @click="dialogVisible = true"><i class="el-icon-edit-outline"></i> 编辑</el-button>
+                                <el-button type="info" size="medium" class="btnColor" round><i class="el-icon-refresh-right"></i> 重新申请</el-button>
+                                <el-button type="info" size="medium" class="btnColor" round><i class="el-icon-document"></i> 查看</el-button>
+                            </div>
+                        </div>
+                    </el-card>
+                </div>
+            </div>
+        </div>
+<!--        <transition name="el-zoom-in-center">-->
+            <el-dialog title="申请表" :visible.sync="dialogVisible">
+                <el-form :model="form" v-for="i in 5" :key="i">
+                    <el-form-item label="姓名" :label-width="formLabelWidth">
+                        <el-input v-model="form.name" autocomplete="off" style="width: 700px;"></el-input>
+                    </el-form-item>
+                    <el-form-item label="申请内容" :label-width="formLabelWidth">
+                        <el-select v-model="form.region" placeholder="请选择活动区域">
+                            <el-option label="ceshi231213" value="shanghai"></el-option>
+                            <el-option label="ceshi2123" value="beijing" v-for="i in 10" :key="i"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+            </el-dialog>
+<!--        </transition>-->
     </div>
 </template>
 
 <script>
-    import * as echarts from 'echarts';
     export default {
         name:'home',
         data(){
@@ -77,37 +101,68 @@
               value: new Date(),
               loading:true,
               fullscreenLoading:true,
+              color:['black'],
+              dialogVisible: false,
+              formLabelWidth: '120px',
+              form: {
+                  name: '',
+                  region: '',
+                  date1: '',
+                  date2: '',
+                  delivery: false,
+                  type: [],
+                  resource: '',
+                  desc: ''
+              },
           }
         },
         methods:{
             changeLoading(){
                 this.loading = false;
             },
-            drawBMap(){
-                // 百度地图API功能
-                var map = new BMap.Map("myChart2");    // 创建Map实例
-                var point = new BMap.Point(118.804041,32.063021);
-                map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-                //IP获取定位
-                function myFun(result){
-                    var cityName = result.name;
-                    map.setCenter(cityName);
-                    map.centerAndZoom(cityName, 6);
-                }
-                var myCity = new BMap.LocalCity();
-                myCity.get(myFun);
+            format_number(n){
+                var b=parseInt(n).toString();
+                var len=b.length;
+                if(len<=3){return b;}
+                var r=len%3;
+                return r>0?b.slice(0,r)+","+b.slice(r,len).match(/\d{3}/g).join(","):b.slice(r,len).match(/\d{3}/g).join(",");
             },
+        },
+        computed:{
+            dateTime(){
+                var date = new Date();
+                var seperator1 = "-";
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                return year + seperator1 + month + seperator1 + strDate;
+            },
+            waitting(){
+                return this.format_number(73123);
+            },
+            waitting1(){
+                return this.format_number(31331);
+            },
+            waitting2(){
+                return this.format_number(6313);
+            }
         },
         mounted() {
             setTimeout(this.changeLoading,1000);
-            this.drawBMap();
         }
     }
 </script>
 
 <style scoped>
 #home{
-
+    min-width: 1000px;
+    max-width: 2000px;
 }
 .el-carousel__item h1{
     color: #475669;
@@ -131,7 +186,61 @@
     .medium{
         text-align: center;
     }
-.diver{
-    height: 10px;
+.container{
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
+.containerItem{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+.contents{
+    margin-top: 1%;
+    display: flex;
+}
+.card{
+    min-width: 31%;
+    min-height:150px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.card1{
+    width: 100%;
+    min-height:150px;
+}
+.carousel{
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    display: flex;
+}
+.dataNum{
+    font-size: 40px;
+    font-weight: 700;
+    margin-top: 10%;
+    margin-bottom: 20%;
+}
+.numColor{
+    color: #ef6c57;
+}
+.numColor1{
+    color: #00af91;
+}
+.numColor2{
+    color: #ffd04b;
+}
+    .application{
+        margin-left: 60px;
+        margin-top: 20px;
+        /*display: flex;*/
+    }
+    .btnColor{
+        background-color: #1a2634;
+        color: #fff;
+        font-weight: 700;
+    }
 </style>

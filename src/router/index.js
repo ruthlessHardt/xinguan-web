@@ -19,35 +19,34 @@ const router = new VueRouter({
         //主页
         {
             name:"layout",
-            path:"/",
+            path:"/layout",
             component:()=>import('@/layout/layout.vue'),
             children:[
                 {
                     path:'/',
                     component:()=>import('@/views/home.vue'),
-                }
+                },
+                {
+                    name:"Contents",
+                    path:"/contents",
+                    component:()=>import('@/layout/components/Contents.vue')
+                },
+                {
+                    name:"home",
+                    path:"/home",
+                    component:()=>import('@/views/home.vue')
+                },
+                {
+                    name:"userManage",
+                    path:"/userManage",
+                    component:()=>import('@/views/system/userManage.vue')
+                },
+                {
+                    name:"materialIn",
+                    path:"/materialIn",
+                    component:()=>import('@/views/buisness/materialIn.vue')
+                },
             ],
-        },
-        //
-        {
-            name:"Contents",
-            path:"/contents",
-            component:()=>import('@/layout/components/Contents.vue')
-        },
-        {
-            name:"home",
-            path:"/home",
-            component:()=>import('@/views/home.vue')
-        },
-        {
-            name:"userManage",
-            path:"/userManage",
-            component:()=>import('@/views/system/userManage.vue')
-        },
-        {
-            name:"materialIn",
-            path:"/materialIn",
-            component:()=>import('@/views/buisness/materialIn.vue')
         },
     ]
 })
@@ -57,19 +56,19 @@ VueRouter.prototype.push = function push(location) {
     return originalPush.call(this, location).catch(err => err)
 }
 
-// router.beforeEach((to, from, next) => {
-//     if (to.path === '/login') {
-//         next();
-//     } else {
-//         let token = localStorage.getItem('Authorization');
-//
-//         if (token === 'null' || token === '') {
-//             next('/login');
-//         } else {
-//             next();
-//         }
-//     }
-// });
+router.beforeEach((to, from, next) => {
+    if (to.path === '/login') {
+        next();
+    } else {
+        let token = localStorage.getItem('loginInfo');
+
+        if (token === null || token === '') {
+            next('/login');
+        } else {
+            next();
+        }
+    }
+});
 
 
 // 6、导出路由对象
