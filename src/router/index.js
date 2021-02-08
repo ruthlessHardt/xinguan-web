@@ -13,7 +13,7 @@ const router = new VueRouter({
     routes: [
         {
             name:"login",
-            path:"/login",
+            path:"/",
             component:()=>import('@/views/login/login.vue')
         },
         //主页
@@ -57,13 +57,13 @@ VueRouter.prototype.push = function push(location) {
 }
 
 router.beforeEach((to, from, next) => {
-    if (to.path === '/login') {
+    if (to.path === '/') {
         next();
     } else {
         let token = localStorage.getItem('loginInfo');
 
         if (token === null || token === '') {
-            next('/login');
+            next('/');
         } else {
             next();
         }

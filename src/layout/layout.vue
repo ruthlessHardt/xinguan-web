@@ -137,7 +137,7 @@
                         type:'success',
                         duration:'2000'
                     });
-                    this.$router.push('/login');
+                    this.$router.push('/');
                     localStorage.removeItem("loginInfo");
                 }
             },

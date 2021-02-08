@@ -73,18 +73,61 @@
             </div>
         </div>
 <!--        <transition name="el-zoom-in-center">-->
-            <el-dialog title="申请表" :visible.sync="dialogVisible">
-                <el-form :model="form" v-for="i in 5" :key="i">
-                    <el-form-item label="姓名" :label-width="formLabelWidth">
-                        <el-input v-model="form.name" autocomplete="off" style="width: 700px;"></el-input>
-                    </el-form-item>
-                    <el-form-item label="申请内容" :label-width="formLabelWidth">
-                        <el-select v-model="form.region" placeholder="请选择活动区域">
-                            <el-option label="ceshi231213" value="shanghai"></el-option>
-                            <el-option label="ceshi2123" value="beijing" v-for="i in 10" :key="i"></el-option>
-                        </el-select>
-                    </el-form-item>
+            <el-dialog title="申请表" :visible.sync="dialogVisible" :before-close="handleClose" :close-on-click-modal="close">
+                <el-form :model="form">
+                    <el-row :gutter="20">
+                        <el-col :span="10">
+                            <el-form-item label="姓名" :label-width="formLabelWidth">
+                                <el-input v-model="form.name" autocomplete="off" style="width: 200px;"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="10">
+                            <el-form-item label="需求来源地" :label-width="formLabelWidth">
+                                <el-select v-model="form.region" placeholder="请选择需求地">
+                                    <el-option label="南京" value="nanjing"></el-option>
+                                    <el-option label="无锡" value="wuxi"></el-option>
+                                    <el-option label="上海" value="shanghai"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row :gutter="20">
+                        <el-col :span="10">
+                            <el-form-item label="姓名" :label-width="formLabelWidth">
+                                <el-input v-model="form.name" autocomplete="off" style="width: 200px;"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="10">
+                            <el-form-item label="需求来源地" :label-width="formLabelWidth">
+                                <el-select v-model="form.region" placeholder="请选择需求地">
+                                    <el-option label="南京" value="nanjing"></el-option>
+                                    <el-option label="无锡" value="wuxi"></el-option>
+                                    <el-option label="上海" value="shanghai"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row :gutter="20">
+                        <el-col :span="10">
+                            <el-form-item label="姓名" :label-width="formLabelWidth">
+                                <el-input v-model="form.name" autocomplete="off" style="width: 200px;"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="10">
+                            <el-form-item label="需求来源地" :label-width="formLabelWidth">
+                                <el-select v-model="form.region" placeholder="请选择需求地">
+                                    <el-option label="南京" value="nanjing"></el-option>
+                                    <el-option label="无锡" value="wuxi"></el-option>
+                                    <el-option label="上海" value="shanghai"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
                 </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="dialogVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                </div>
             </el-dialog>
 <!--        </transition>-->
     </div>
@@ -114,6 +157,7 @@
                   resource: '',
                   desc: ''
               },
+              close:false
           }
         },
         methods:{
@@ -127,6 +171,13 @@
                 var r=len%3;
                 return r>0?b.slice(0,r)+","+b.slice(r,len).match(/\d{3}/g).join(","):b.slice(r,len).match(/\d{3}/g).join(",");
             },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {});
+            }
         },
         computed:{
             dateTime(){

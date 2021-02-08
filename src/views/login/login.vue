@@ -6,10 +6,10 @@
                        <div class="contentItem">
                            <span class="text1">登录</span><br><br><br>
                            <label for="username">用户名</label><br><br>
-                           <input name="username" id="username" class="input" type="text" v-model="loginInfo.username"></input>
+                           <input name="username" id="username" class="input" type="text" v-on:keyup.enter="login" v-model="loginInfo.username"></input>
                            <br><br><br>
                            <label for="password">密码</label><br><br>
-                           <input name="password" id="password" class="input" type="password" v-model="loginInfo.password"></input>
+                           <input name="password" id="password" class="input" type="password" v-on:keyup.enter="login" v-model="loginInfo.password"></input>
                            <br><br>
                            <el-button type="primary" round @click="login">登录</el-button>
                        </div>
