@@ -1,7 +1,40 @@
 # 基于动态规划的新冠物资管理系统的设计与实现
 
 # （未来城市就物资部分的局部雏形）
+## 任务1（2021.2.9）
 
+---
+用户以及权限数据库表
+
+普通用户表xg_n_user
+
+| 字段名        | 数据类型 | 长度 | 键   | 描述               |
+| ------------- | :------- | ---- | ---- | ------------------ |
+| n_id          | varchar2 | 4    | 主键 | 用户编号           |
+| n_uname       | varchar2 | 10   |      | 用户名             |
+| n_password    | varchar2 | 16   |      | 用户密码           |
+| n_phone       | varchar2 | 11   |      | 用户电话           |
+| n_sex         | varchar2 | 2    |      | 用户性别           |
+| n_dept        | varchar2 | 10   |      | 用户所属部门、机构 |
+| n_role_id     | varchar2 | 4    | 外键 | 用户角色id         |
+| n_create_time | date     |      |      | 创建时间           |
+| state         | varchar2 | 2    |      | 是否删除           |
+| create_by     | varchar2 | 10   |      | 谁创建的           |
+| avatar        | varchar2 | 255  |      | 用户头像           |
+
+角色表
+
+| 字段名        | 数据类型 | 长度 | 键   | 描述               |
+| ------------- | :------- | ---- | ---- | ------------------ |
+| n_id          | varchar2 | 4    | 主键 | 用户编号           |
+| n_uname       | varchar2 | 10   |      | 用户名             |
+| n_password    | varchar2 | 16   |      | 用户密码           |
+| n_phone       | varchar2 | 11   |      | 用户电话           |
+| n_sex         | varchar2 | 2    |      | 用户性别           |
+| n_dept        | varchar2 | 10   |      | 用户所属部门、机构 |
+| n_role_id     | varchar2 | 4    | 外键 | 用户角色id         |
+| n_create_time | date     |      |      | 创建时间           |
+| n_state       | varchar2 | 2    |      | 是否删除           |
 ---
 
 ## 2021.2.9更新（对象划分）
