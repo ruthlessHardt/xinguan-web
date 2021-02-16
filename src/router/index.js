@@ -46,6 +46,11 @@ const router = new VueRouter({
                     path:"/materialIn",
                     component:()=>import('@/views/buisness/materialIn.vue')
                 },
+                {
+                    name:"userProfile",
+                    path:"/userProfile",
+                    component:()=>import('@/views/userProfile.vue')
+                },
             ],
         },
     ]

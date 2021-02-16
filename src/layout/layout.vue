@@ -131,7 +131,9 @@
                 }
             },
             handleCommand(command) {
-                if(command==='e'){
+                if(command==='a'){
+                    this.$router.push('/userProfile');
+                }else if(command==='e'){
                     this.$message({
                         message:'注销成功了哟！',
                         type:'success',

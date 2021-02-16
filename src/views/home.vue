@@ -59,7 +59,7 @@
                                     <span style="font-size: 14px;color: #6c757d">申请于{{dateTime}}</span>
                                 </div>
                                 <div style="width: 100%">
-                                    <el-progress :percentage="20"></el-progress>
+                                    <el-progress :percentage="50"></el-progress>
                                 </div>
                             </div>
                             <div style="margin-top: 1%;float: right;padding-right: 2%">
