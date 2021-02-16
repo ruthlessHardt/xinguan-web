@@ -1,7 +1,78 @@
 # 基于动态规划的新冠物资管理系统的设计与实现
+**@Author:liwentao**
+---
+## 更新（2021.2.16）权限系统设计
 
-# （未来城市就物资部分的局部雏形）
-## 任务1（2021.2.9）
+用户以及权限数据库表
+
+普通用户表xg_n_user
+
+| 字段名      | 数据类型 | 长度 | 键   | 描述               |
+| ----------- | :------- | ---- | ---- | ------------------ |
+| n_id        | int      |      | 主键 | 用户编号           |
+| n_uname     | varchar  | 10   |      | 用户名             |
+| n_password  | varchar  | 16   |      | 用户密码           |
+| n_phone     | varchar  | 11   |      | 用户电话           |
+| n_sex       | varchar  | 2    |      | 用户性别           |
+| n_dept      | varchar  | 10   |      | 用户所属部门、机构 |
+| create_time | datetime |      |      | 创建时间           |
+| update_time | datetime |      |      | 更新时间           |
+| state       | varchar  | 2    |      | 状态1/0，默认1     |
+| create_by   | varchar  | 10   |      | 谁创建的           |
+| avatar      | varchar  | 255  |      | 用户头像           |
+
+角色表xg_role
+
+| 字段名      | 数据类型 | 长度 | 键   | 描述           |
+| ----------- | :------- | ---- | ---- | -------------- |
+| r_id        | int      |      | 主键 | 角色编号       |
+| r_name      | varchar  | 10   |      | 角色名         |
+| create_by   | varchar  | 10   |      | 谁创建的       |
+| create_time | datetime |      |      | 创建时间       |
+| update_time | datetime |      |      | 更新时间       |
+| state       | varchar  | 2    |      | 状态1/0，默认1 |
+
+菜单表xg_menu
+
+| 字段名      | 数据类型 | 长度 | 键   | 描述                   |
+| ----------- | :------- | ---- | ---- | ---------------------- |
+| m_id        | int      |      | 主键 | 菜单编号               |
+| m_name      | varchar  | 10   |      | 菜单名                 |
+| m_pid       | int      |      |      | 父级菜单               |
+| m_url       | varchar  | 255  |      | 菜单地址               |
+| level       | varchar  | 4    |      | 菜单层级，1级2级3级4级 |
+| create_by   | varchar  | 10   |      | 谁创建的               |
+| create_time | datetime |      |      | 创建时间               |
+| update_time | datetime |      |      | 更新时间               |
+| state       | varchar  | 2    |      | 状态1/0，默认1         |
+
+
+
+#### 中间映射表
+
+用户-角色表xg_user_role
+
+| 字段名      | 数据类型 | 长度 | 键   | 描述                           |
+| ----------- | :------- | ---- | ---- | ------------------------------ |
+| id          | int      |      | 主键 | 编号                           |
+| u_id        | int      |      |      | 用户ID                         |
+| r_id        | int      |      |      | 角色ID                         |
+| create_by   | varchar  | 10   |      | 谁创建的                       |
+| create_time | datetime |      |      | 创建时间                       |
+| update_time | datetime |      |      | 更新时间                       |
+| state       | varchar  | 2    |      | 状态1/0，默认1（禁用功能字段） |
+
+角色-菜单表xg_role_menu
+
+| 字段名      | 数据类型 | 长度 | 键   | 描述                           |
+| ----------- | :------- | ---- | ---- | ------------------------------ |
+| id          | int      |      | 主键 | 编号                           |
+| r_id        | int      |      |      | 角色ID                         |
+| m_id        | int      |      |      | 菜单ID                         |
+| create_by   | varchar  | 10   |      | 谁创建的                       |
+| create_time | datetime |      |      | 创建时间                       |
+| update_time | datetime |      |      | 更新时间                       |
+| state       | varchar  | 2    |      | 状态1/0，默认1（禁用功能字段） |
 
 ---
 ## 2021.2.9更新
@@ -9,40 +80,8 @@
 ![image-20210209145627770](https://s3.jpg.cm/2021/02/15/gGHRC.png)
 
 ![image-20210209145654192](https://s3.jpg.cm/2021/02/15/gGJ1t.png)
+
 ---
-用户以及权限数据库表
-
-普通用户表xg_n_user
-
-| 字段名        | 数据类型 | 长度 | 键   | 描述               |
-| ------------- | :------- | ---- | ---- | ------------------ |
-| n_id          | varchar2 | 4    | 主键 | 用户编号           |
-| n_uname       | varchar2 | 10   |      | 用户名             |
-| n_password    | varchar2 | 16   |      | 用户密码           |
-| n_phone       | varchar2 | 11   |      | 用户电话           |
-| n_sex         | varchar2 | 2    |      | 用户性别           |
-| n_dept        | varchar2 | 10   |      | 用户所属部门、机构 |
-| n_role_id     | varchar2 | 4    | 外键 | 用户角色id         |
-| n_create_time | date     |      |      | 创建时间           |
-| state         | varchar2 | 2    |      | 是否删除           |
-| create_by     | varchar2 | 10   |      | 谁创建的           |
-| avatar        | varchar2 | 255  |      | 用户头像           |
-
-角色表
-
-| 字段名        | 数据类型 | 长度 | 键   | 描述               |
-| ------------- | :------- | ---- | ---- | ------------------ |
-| n_id          | varchar2 | 4    | 主键 | 用户编号           |
-| n_uname       | varchar2 | 10   |      | 用户名             |
-| n_password    | varchar2 | 16   |      | 用户密码           |
-| n_phone       | varchar2 | 11   |      | 用户电话           |
-| n_sex         | varchar2 | 2    |      | 用户性别           |
-| n_dept        | varchar2 | 10   |      | 用户所属部门、机构 |
-| n_role_id     | varchar2 | 4    | 外键 | 用户角色id         |
-| n_create_time | date     |      |      | 创建时间           |
-| n_state       | varchar2 | 2    |      | 是否删除           |
----
-
 ## 2021.2.9更新（对象划分）
 
 ### 关于对象设置：
@@ -113,8 +152,6 @@
 
 
 
-**@Author:liwentao**
-
 ### RuthlessHardt
 
 ## 功能需求分析
@@ -168,8 +205,10 @@
 ## 技术支持
 
 ---
-
-s
+#### SpringBoot  
+#### Vue
+#### Element-UI
+#### Echarts
 
 ---
 
@@ -301,23 +340,9 @@ s
 | create_time               | datetime | 0    | 否       |      | 创建时间         |
 | update_time               | datetime | 0    | 否       |      | 修改时间         |
 
-## 系统模块（菜单管理等待定）
-
-### 用户表（xg_material_stock）
-
-| 字段名      | 数据类型 | 长度 | 是否NULL | 键   | 注释         |
-| ----------- | -------- | ---- | -------- | ---- | ------------ |
-| id          | char     | 4    | 否       | 主键 | 用户ID       |
-| user_name   | varchar  | 255  | 否       |      | 用户姓名     |
-| pass_word   | varchar  | 255  | 否       |      | 用户密码     |
-| sex         | varchar  | 4    | 否       |      | 用户性别     |
-| tel         | varchar  | 11   | 否       |      | 用户联系方式 |
-| nickname    | varchar  | 25   | 否       |      | 用户昵称     |
-| create_time | datetime | 0    | 否       |      | 创建时间     |
-| update_time | datetime | 0    | 否       |      | 修改时间     |
+## 系统模块（菜单管理等待定）   |
 
 ### 菜单表
 
 ### 二级菜单表
 
-### 
