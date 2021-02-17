@@ -95,7 +95,6 @@
 <script>
     import Navbar from "../layout/components/Navbar";
     import Contents from "../layout/components/Contents";
-    import {getEpidemicInfo} from "../services/api";
     import  axios from 'axios'
 
     export default {
