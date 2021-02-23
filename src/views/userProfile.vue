@@ -37,13 +37,13 @@
                                        <div class="name">姓名：</div>
                                    </el-col>
                                    <el-col :span="7">
-                                       <span>{{userInfo.username}}</span>
+                                       <span>{{userInfoVo.username}}</span>
                                    </el-col>
                                    <el-col :span="4">
                                        <div class="name">性别：</div>
                                    </el-col>
                                    <el-col :span="7">
-                                       <span>男</span>
+                                       <span>{{userInfoVo.sex}}</span>
                                    </el-col>
                                </el-row>
                                <br>
@@ -52,7 +52,7 @@
                                        <div class="name">联系方式：</div>
                                    </el-col>
                                    <el-col :span="7">
-                                       <span>13412010121</span>
+                                       <span>{{userInfoVo.phone}}</span>
                                    </el-col>
                                </el-row>
                                <br>
@@ -61,13 +61,13 @@
                                        <div class="name">部门：</div>
                                    </el-col>
                                    <el-col :span="7">
-                                       <span>国家卫健委</span>
+                                       <span>{{userInfoVo.dept}}</span>
                                    </el-col>
                                    <el-col :span="4">
                                        <div class="name">创建人：</div>
                                    </el-col>
                                    <el-col :span="7">
-                                       <span>admin</span>
+                                       <span>{{userInfoVo.createBy}}</span>
                                    </el-col>
                                </el-row>
                                <br>
@@ -76,13 +76,13 @@
                                        <div class="name">创建时间：</div>
                                    </el-col>
                                    <el-col :span="7">
-                                       <span>2021.2.16</span>
+                                       <span>{{userInfoVo.createTime}}</span>
                                    </el-col>
                                    <el-col :span="4">
                                        <div class="name">更新时间：</div>
                                    </el-col>
                                    <el-col :span="7">
-                                       <span>2021.2.17</span>
+                                       <span>{{userInfoVo.updateTime}}</span>
                                    </el-col>
                                </el-row>
                                <br>
@@ -91,7 +91,7 @@
                                        <div class="name">状态：</div>
                                    </el-col>
                                    <el-col :span="7">
-                                       <span>正常</span>
+                                       <span>{{userInfoVo.state}}</span>
                                    </el-col>
                                </el-row>
                            </el-card>
@@ -242,15 +242,29 @@
 
 <script>
     import * as echarts from 'echarts';
+    import {searchUser} from "../services/userService";
     export default {
         name: "userProfile",
         data(){
           return {
               activeName:'zl',
               avatar: "https://s3.jpg.cm/2020/10/27/No0X4.jpg",
+              userInfoVo:{
+                  username:'',
+                  sex:'',
+                  phone:'',
+                  dept:'',
+                  createBy:'',
+                  createTime:'',
+                  updateTime:''
+              },
               userInfo:{
-                username:'ruthlessHardt',
-                sex:'男',
+                username:'',
+                sex:'',
+                phone:'',
+                id:localStorage.getItem("nid"),
+                dept:'',
+                createBy:''
               },
               textarea:'',
               motto:'其潇洒',
@@ -419,6 +433,21 @@
         },
         mounted() {
             this.chart1();
+            searchUser(this.userInfo).then(res=>{
+                console.log(res.data);
+                if(res.data!=''){
+                    this.userInfoVo.username = res.data.data[0].nuName;
+                    this.userInfoVo.sex = res.data.data[0].nsex;
+                    this.userInfoVo.phone = res.data.data[0].nphone;
+                    this.userInfoVo.dept = res.data.data[0].ndept;
+                    this.userInfoVo.createBy = res.data.data[0].createBy;
+                    this.userInfoVo.createTime = res.data.data[0].createTime;
+                    this.userInfoVo.updateTime = res.data.data[0].updateTime;
+                    this.userInfoVo.state = res.data.data[0].state==1?'正常':'异常';
+                }
+
+            });
+
         }
     }
 </script>

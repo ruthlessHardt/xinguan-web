@@ -65,8 +65,8 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/') {
         next();
     } else {
-        let token = localStorage.getItem('loginInfo');
-
+        // let token = localStorage.getItem('loginInfo');
+        var token = $cookies.get("authorization");
         if (token === null || token === '') {
             next('/');
         } else {

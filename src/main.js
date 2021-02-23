@@ -15,11 +15,12 @@ Vue.use(BaiduMap, {
   ak: 'nsNIAFzRFjAGp4hKjU00MvyiAEbZGkWg'
 })
 
-import axios from 'axios'
-// axios.defaults.baseURL = '/api/api'  //关键代码
+import cookies from 'vue-cookies'
+Vue.use(cookies)
 
 new Vue({
   render: h => h(App),
   router,
-  vuex
+  vuex,
+  cookies
 }).$mount('#app')

@@ -38,6 +38,7 @@
 </template>
 
 <script>
+    import {Userlogin} from "../../services/userService";
     export default {
         name: "login",
         data(){
@@ -62,33 +63,29 @@
                         type: 'error',
                         duration:'5000'
                     });
-                }else if(this.loginInfo.username!=='jojo'||this.loginInfo.password!=='123456'){
-                    this.$message({
-                        message: '您输入的用户名或密码不对鸭！',
-                        type: 'warning',
-                        duration:'5000'
-                    });
-                }else if(this.loginInfo.username==='jojo'&&this.loginInfo.password==='123456'){
-                    /**
-                     * 这里进行后台验证
-                     */
-                    localStorage.setItem("loginInfo",this.loginInfo.username+this.loginInfo.password+"123123jvkjasbdasldn123");
-                    this.$router.push('/layout');
-                    this.$message({
-                        message:'您已成功着陆了！',
-                        type:'success',
+                }else{
+                    Userlogin(this.loginInfo).then(res=>{
+                        if(res.data.code===200){
+                            // localStorage.setItem("userInfo",res.data.data);
+                            localStorage.setItem("nid",res.data.data.nid);
+                            this.$cookies.set("authorization",res.headers.authorization);   // return this
+                            this.$router.push('/layout');
+                            // console.log(this.$cookies.get("authorization"));
+                            this.$message({
+                                message:'您已成功着陆了！',
+                                type:'success',
+                            });
+                        }else if(res.data.code=='400'){
+                            this.$message({
+                                message: '您输入的用户名或密码不对鸭！',
+                                type: 'warning',
+                                duration:'5000'
+                            });
+                        }
+                        console.log(res);
                     });
                 }
 
-              // if(this.loginInfo.username!=''&&this.loginInfo.password!=''){
-              //     this.$notify({
-              //         title: '提示',
-              //         message: '登陆成功',
-              //         type: 'success'
-              //     });
-              //     localStorage.setItem("loginInfos",'123qweopasd9213');
-              //     location.reload();
-              // }
             },
         },
     }

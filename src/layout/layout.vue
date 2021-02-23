@@ -138,8 +138,8 @@
                         type:'success',
                         duration:'2000'
                     });
+                    this.$cookies.remove("authorization");
                     this.$router.push('/');
-                    localStorage.removeItem("loginInfo");
                 }
             },
         },
