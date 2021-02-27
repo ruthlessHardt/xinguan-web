@@ -6,31 +6,23 @@
             <el-row :gutter="40">
                 <el-col :span="5">
                     <el-card>
-                        <div slot="header" class="clearfix">
-                            <span>卡片名称</span>
-                        </div>
+
                         ss
                     </el-card>
                     <br>
                     <el-card>
-                        <div slot="header" class="clearfix">
-                            <span>卡片名称</span>
-                        </div>
+
                         s
                     </el-card>
                     <br>
                     <el-card>
-                        <div slot="header" class="clearfix">
-                            <span>卡片名称</span>
-                        </div>
+
                         s
                     </el-card>
                 </el-col>
                 <el-col :span="18">
                     <el-card style="min-height: 402px">
-                        <div slot="header" class="clearfix">
-                            <span>卡片名称</span>
-                        </div>
+
                         ssasda
                     </el-card>
                 </el-col>
@@ -42,17 +34,6 @@
     </div>
 
 </template>
-
-<style>
-    .el-table .warning-row {
-        background: oldlace;
-    }
-
-    .el-table .success-row {
-        background: #f0f9eb;
-    }
-</style>
-
 <script>
     export default {
         methods: {
@@ -96,3 +77,16 @@
         }
     }
 </script>
+<style scoped>
+    #userManage{
+        height: 100%;
+        margin: -20px;
+        padding: 2.2%  3% 0% 3%;
+        background-color: #545372;
+    }
+    .el-card{
+        background-color: #2B2C3E;
+        border: none;
+        color: white;
+    }
+</style>

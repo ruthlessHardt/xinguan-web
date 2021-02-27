@@ -25,11 +25,12 @@
             <!-- 菜单栏宽度设为自动 -->
 <!--            active-text-color="rgb(64, 158, 255)"-->
 <!--            active-text-color="rgb(191, 203, 217)"-->
+<!--            background-color="rgb(48, 65, 86)"-->
             <el-aside width="auto">
                 <el-menu
                         :collapse="isCollapse"
                         class="el-menu-vertical"
-                        background-color="rgb(48, 65, 86)"
+                        background-color="#2B2C3E"
                         text-color="rgb(191, 203, 217)"
                         active-text-color="rgb(64, 158, 255)"
                 >
@@ -55,7 +56,8 @@
                 </el-menu>
             </el-aside>
             <!-- 可以结合vue-router路由嵌套实现页面的跳转与显示 -->
-            <el-main>
+            <el-main class="main">
+                <div style="opacity: 0.2" class="bg"></div>
                 <router-view></router-view>
             </el-main>
         </el-container>
@@ -149,11 +151,13 @@
     /*设置背景色，方便观察效果*/
     .el-header{
         /* 上层显示，避免被Main和Aside遮挡 */
-        background-color:rgb(48, 65, 86) ;
+        /*background-color:rgb(48, 65, 86) ;*/
+        background-color: #2B2C3E;
         z-index: 999;
     }
     .el-aside{
-        background-color: rgb(48, 65, 86);
+        /*background-color: rgb(48, 65, 86);*/
+        background-color: #2B2C3E;
     }
     .el-main{
         background-color: #eee;
@@ -203,5 +207,12 @@
     }
     .el-aside{
         overflow: hidden;
+    }
+    .main{
+        /*background-image: url("https://s3.jpg.cm/2021/02/28/zDHVW.jpg");*/
+        /*background-size: cover;*/
+        /*background: linear-gradient(120deg,rgba(48, 65, 86,0.1),rgba(187,255,255,0.9)), url('https://s3.jpg.cm/2021/02/28/zDHVW.jpg') no-repeat 0px 0px/ 100% 100%;*/
+        /*background-color:rgba(48, 65, 86,0.3) ;*/
+        /*background-color: #545372;*/
     }
 </style>

@@ -107,7 +107,7 @@
                </el-row>
                 <br>
                 <el-row :gutter="10">
-                    <el-card style="background-color: transparent" shadow="never">
+                    <el-card style="background-color: transparent;border: none" shadow="never">
                         <div slot="header" class="clearfix">
                             <span>操作日志</span>
                             <el-input class="inputs" v-model="searchInfo.info" placeholder="请输入操作内容"></el-input>
