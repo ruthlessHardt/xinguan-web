@@ -73,7 +73,7 @@
             </div>
         </div>
 <!--        <transition name="el-zoom-in-center">-->
-            <el-dialog title="申请表" :visible.sync="dialogVisible" :before-close="handleClose" :close-on-click-modal="close">
+            <el-dialog width="1000px" title="申请表" :visible.sync="dialogVisible" :before-close="handleClose" :close-on-click-modal="close">
                 <el-form :model="form">
                     <el-row :gutter="20">
                         <el-col :span="10">

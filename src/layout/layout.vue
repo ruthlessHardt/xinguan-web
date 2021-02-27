@@ -23,65 +23,35 @@
         </el-header>
         <el-container>
             <!-- 菜单栏宽度设为自动 -->
+<!--            active-text-color="rgb(64, 158, 255)"-->
+<!--            active-text-color="rgb(191, 203, 217)"-->
             <el-aside width="auto">
                 <el-menu
-                        default-active="1"
                         :collapse="isCollapse"
                         class="el-menu-vertical"
                         background-color="rgb(48, 65, 86)"
                         text-color="rgb(191, 203, 217)"
                         active-text-color="rgb(64, 158, 255)"
                 >
-                    <el-menu-item index="0" @click="toHome">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">全国疫情</span>
+                    <!--v-for尽量写在自己的div里-->
+                    <div v-for="(item,index) in menuList" :key="index">
+                    <el-submenu :index="index.toString()" v-if="index>0&&item.xgMenuList.length!=0">
+                        <template slot="title">
+                            <i :class="item.icon" style="padding-right: 20px"></i>
+                            <span slot="title">{{item.mname}}</span>
+                        </template>
+                        <el-menu-item-group v-for="(item1,index2) in item.xgMenuList" :key="index2">
+                            <el-menu-item :index="index.toString()+'-'+index2.toString()">
+                                <i :class="item1.icon"></i>
+                                    <span @click="goto(item1.murl)">{{item1.mname}}</span>
+                            </el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-menu-item :index="index.toString()" @click="goto(item.murl)" v-if="index!=0&&item.xgMenuList.length==0">
+                        <i :class="item.icon" style="padding-right: 20px"></i>
+                        <span slot="title">{{item.mname}}</span>
                     </el-menu-item>
-                    <el-submenu index="1">
-                        <template slot="title" @click="toManage">
-                            <i class="el-icon-s-platform"></i>
-                            <span>系统管理</span>
-                        </template>
-                        <el-menu-item-group>
-                            <el-menu-item index="1-1"><i class="el-icon-scissors"></i><span @click="goto('1-1')">用户管理</span></el-menu-item>
-                            <el-menu-item index="1-2"><i class="el-icon-scissors"></i><span @click="goto('1-2')">权限管理</span></el-menu-item>
-                            <el-menu-item index="1-3"><i class="el-icon-scissors"></i><span @click="goto('1-3')">角色管理</span></el-menu-item>
-                            <el-menu-item index="1-4"><i class="el-icon-magic-stick"></i><span @click="goto('1-4')">菜单管理</span></el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="2">
-                        <template slot="title">
-                            <i class="el-icon-s-tools"></i>
-                            <span>物资管理</span>
-                        </template>
-                        <el-menu-item-group>
-                            <el-menu-item index="2-1"><span @click="goto('2-1')">物资入库</span></el-menu-item>
-                            <el-menu-item index="2-2"><span @click="goto('2-2')">物资资料</span></el-menu-item>
-                            <el-menu-item index="2-3"><span @click="goto('2-3')">物资出库</span></el-menu-item>
-                            <el-menu-item index="2-4"><span @click="goto('2-4')">物资发放</span></el-menu-item>
-                            <el-menu-item index="2-5"><span @click="goto('2-5')">物资类别</span></el-menu-item>
-                            <el-menu-item index="2-6"><span @click="goto('2-6')">物资流向</span></el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="3">
-                        <template slot="title">
-                            <i class="el-icon-user-solid"></i>
-                            <span>人员数据</span>
-                        </template>
-                        <el-menu-item-group>
-                            <el-menu-item index="3-1">人员数量</el-menu-item>
-                            <el-menu-item index="3-2">人员位置</el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="4">
-                        <template slot="title">
-                            <i class="el-icon-message-solid"></i>
-                            <span>健康报警</span>
-                        </template>
-                        <el-menu-item-group>
-                            <el-menu-item index="4-1">心率报警</el-menu-item>
-                            <el-menu-item index="4-2">血压报警</el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
+                    </div>
                 </el-menu>
             </el-aside>
             <!-- 可以结合vue-router路由嵌套实现页面的跳转与显示 -->
@@ -96,13 +66,15 @@
     import Navbar from "../layout/components/Navbar";
     import Contents from "../layout/components/Contents";
     import  axios from 'axios'
+    import {menuInfo} from "../services/systemService";
 
     export default {
         data(){
             return {
                 isCollapse:true,
-                logo:'XinGuan',
+                logo:'',
                 loading:true,
+                menuList:'',
             }
         },
         methods: {
@@ -116,18 +88,9 @@
                 // console.log(this.isCollapse)
                 this.isCollapse = !this.isCollapse;
             },
-            toHome(){
-                this.$router.push("/contents");
-            },
-            toManage(){
-                this.$router.push("/manage");
-            },
-            goto(id){
-                if(id=='1-1'){
-                    this.$router.push('/userManage');
-                }else if(id=='2-1'){
-                    this.$router.push('/materialIn');
-                }
+            goto(url){
+                // console.log(id);
+                this.$router.push(url);
             },
             handleCommand(command) {
                 if(command==='a'){
@@ -152,6 +115,20 @@
             // }).then(res=>{
             //     console.log(res.data)
             // });
+            menuInfo(localStorage.getItem("nid")).then(res=>{
+                if(res.data != null){
+                    this.logo=res.data[0].mname;
+                    this.menuList = res.data;
+                }else {
+                    this.$message({
+                        message:'服务器出现错误！',
+                        type:'warning',
+                        duration:'2000'
+                    });
+                }
+                console.log(res.data);
+            });
+
         }
     }
 </script>

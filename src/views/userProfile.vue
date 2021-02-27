@@ -1,5 +1,7 @@
 <template>
-    <div id="userProfile">
+    <div id="userProfile" v-loading="loading"
+         element-loading-background="rgba(0, 0, 0, 0.8)"
+         v-loading.fullscreen.lock="fullscreenLoading">
         <el-row :gutter="20">
             <el-col :span="6">
                 <div class="avatar">
@@ -31,7 +33,7 @@
                <el-row :gutter="10">
                    <el-tabs v-model="activeName">
                        <el-tab-pane label="信息总览" name="zl">
-                           <el-card style="min-height: 260px">
+                           <el-card style="min-height: 260px;">
                                <el-row :gutter="20">
                                    <el-col :span="4">
                                        <div class="name">姓名：</div>
@@ -247,6 +249,8 @@
         name: "userProfile",
         data(){
           return {
+              loading:true,
+              fullscreenLoading:true,
               activeName:'zl',
               avatar: "https://s3.jpg.cm/2020/10/27/No0X4.jpg",
               userInfoVo:{
@@ -317,6 +321,9 @@
           }
         },
         methods:{
+            changeLoading(){
+                this.loading = false;
+            },
             changeAvatar(){
                 //没写
                 this.$notify.error({
@@ -432,6 +439,7 @@
             }
         },
         mounted() {
+            setTimeout(this.changeLoading,1000);
             this.chart1();
             searchUser(this.userInfo).then(res=>{
                 console.log(res.data);

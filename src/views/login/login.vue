@@ -1,5 +1,7 @@
 <template>
-        <div id="login">
+        <div id="login" v-loading="loading"
+             element-loading-background="rgba(0, 0, 0, 0.8)"
+             v-loading.fullscreen.lock="fullscreenLoading">
             <div class="container">
                 <el-card>
                    <div class="content">
@@ -47,9 +49,14 @@
                     username:'',
                     password:''
                 },
+                loading:false,
+                fullscreenLoading:false,
             }
         },
         methods:{
+            changeLoading(){
+                this.loading = true;
+            },
             login(){
                 if(this.loginInfo.username===''){
                     this.$message({
@@ -64,9 +71,9 @@
                         duration:'5000'
                     });
                 }else{
+                    this.changeLoading();
                     Userlogin(this.loginInfo).then(res=>{
                         if(res.data.code===200){
-                            // localStorage.setItem("userInfo",res.data.data);
                             localStorage.setItem("nid",res.data.data.nid);
                             this.$cookies.set("authorization",res.headers.authorization);   // return this
                             this.$router.push('/layout');
@@ -76,18 +83,28 @@
                                 type:'success',
                             });
                         }else if(res.data.code=='400'){
+                            this.loading=false;
                             this.$message({
                                 message: '您输入的用户名或密码不对鸭！',
                                 type: 'warning',
                                 duration:'5000'
                             });
                         }
-                        console.log(res);
+                    }).catch(exception=>{
+                        this.loading=false;
+                        if(exception instanceof Error) {
+                            this.$message({
+                                message: '服务器连接出现了问题鸭！',
+                                type: 'error',
+                                duration:'5000'
+                            });
+                        }
                     });
                 }
 
             },
         },
+
     }
 </script>
 

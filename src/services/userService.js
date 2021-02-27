@@ -4,6 +4,7 @@ import Vue from 'vue'
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
 let token =  VueCookies.get("authorization");
+
 /**
  * 登录
  * @param loginInfo
@@ -11,12 +12,13 @@ let token =  VueCookies.get("authorization");
  * @constructor
  */
 export async function Userlogin(loginInfo) {
-    var response = await axios.get(server+"/user/login",{
-        params:{
-            nuName:loginInfo.username,
-            nPassword:loginInfo.password
-        }
-    });
+        let response = await axios.get(server+"/user/login",{
+            params:{
+                nuName:loginInfo.username,
+                nPassword:loginInfo.password
+            },
+        });
+
     return response;
 }
 
