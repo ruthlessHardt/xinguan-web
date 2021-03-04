@@ -109,32 +109,14 @@
                     </div>
                     <el-card class="card1">
                         <el-table
-                                :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                                :data="tableData.filter(data => !search || data.nuName.toLowerCase().includes(search.toLowerCase()))"
                                 style="width: 100%;background-color: transparent;border: none">
+                            <div v-for="(item,index) in table" :key="index">
                             <el-table-column
-                                    label="Date"
-                                    prop="date">
+                                    :label="item.name"
+                                    :prop="item.dataName">
                             </el-table-column>
-                            <el-table-column
-                                    label="Name"
-                                    prop="name">
-                            </el-table-column>
-                            <el-table-column
-                                    label="Date"
-                                    prop="date">
-                            </el-table-column>
-                            <el-table-column
-                                    label="Name"
-                                    prop="name">
-                            </el-table-column>
-                            <el-table-column
-                                    label="Date"
-                                    prop="date">
-                            </el-table-column>
-                            <el-table-column
-                                    label="Name"
-                                    prop="name">
-                            </el-table-column>
+                            </div>
                             <el-table-column
                                     align="right">
                                 <template slot="header" slot-scope="scope">
@@ -173,6 +155,7 @@
 </template>
 <script>
     import * as echarts from 'echarts';
+    import {getNum, searchUser} from "../../services/userService";
     export default {
         methods: {
             changeLoading(){
@@ -237,44 +220,6 @@
                     }]
                 };
                 option && myChart.setOption(option);
-
-                var chartDom1 = document.getElementById('chart1');
-                var myChart1 = echarts.init(chartDom1);
-                var option1;
-                option1 = {
-                    legend: {
-                        top: 'bottom',
-                        textStyle: {
-                            color: "#fff"
-                        }
-                    },
-                    toolbox: {
-                        show: false
-                    },
-                    series: [
-                        {
-                            name: '面积模式',
-                            type: 'pie',
-                            radius: [10, 100],
-                            center: ['50%', '50%'],
-                            roseType: 'area',
-                            itemStyle: {
-                                borderRadius: 10,
-                            },
-                            data: [
-                                {value: 40, name: 'rose 1'},
-                                {value: 38, name: 'rose 2'},
-                                {value: 32, name: 'rose 3'},
-                                {value: 30, name: 'rose 4'},
-                                {value: 28, name: 'rose 5'},
-                                {value: 26, name: 'rose 6'},
-                                {value: 22, name: 'rose 7'},
-                                {value: 18, name: 'rose 8'}
-                            ]
-                        }
-                    ]
-                };
-                option1 && myChart1.setOption(option1);
 
                 var app = {};
                 var chartDom2 = document.getElementById('chart2');
@@ -393,6 +338,51 @@
                 }, 1000);
                 option2 && myChart2.setOption(option2);
             },
+            drawchart1(){
+                var chartDom1 = document.getElementById('chart1');
+                var myChart1 = echarts.init(chartDom1);
+                var option1;
+                option1 = {
+                    legend: {
+                        top: 'bottom',
+                        textStyle: {
+                            color: "#fff"
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    series: [
+                        {
+                            name: '访问来源',
+                            type: 'pie',
+                            radius: ['40%', '70%'],
+                            avoidLabelOverlap: false,
+                            itemStyle: {
+                                borderRadius: 30,
+                                borderColor: '#fff',
+                                borderWidth: 0
+                            },
+                            label: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: '20',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            labelLine: {
+                                show: true
+                            },
+                            data:[{name:"sds",value:12312}],
+                        }
+                    ]
+                };
+                option1 && myChart1.setOption(option1);
+            },
             goto(ref){
                 if(ref=='yonghu'){
                     document.getElementById('yonghu').scrollIntoView({ block: 'start', behavior: 'smooth' });
@@ -405,55 +395,66 @@
             return {
                 loading:true,
                 fullscreenLoading:true,
-                tableData: [{
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                },{
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                },{
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                },{
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                },{
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                },{
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                },{
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                },
-                    {
+                table: {
+                    state:{
+                        name:'状态',
+                        dataName:'state',
+                    },
+                    nid:{
+                        name:'ID',
+                        dataName:'nid',
+                    },
+                    nuName:{
+                        name:'姓名',
+                        dataName:'nuName',
+                    },
+                    nsex:{
+                        name:'性别',
+                        dataName:'nsex',
+                    },
+                    ndept:{
+                        name:'部门',
+                        dataName:'ndept',
+                    },
+                    createBy:{
+                        name:'创建者',
+                        dataName:'createBy',
+                    },
+                    // avatar:{
+                    //     name:'头像',
+                    //     dataName:'avatar',
+                    // },
+                    nphone:{
+                        name:'联系电话',
+                        dataName:'nphone',
+                    },
 
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
+                    createTime:{
+                        name:'创建时间',
+                        dataName:'createTime',
+                    },
+                    updateTime:{
+                        name:'更新时间',
+                        dataName:'updateTime',
+                    }
+                },
+                tableData: [{
                 }],
                 search: '',
+                number:{
+                    userNum:'',
+                },
+                userList:"",
+                userInfo:{
+                    sex:'',
+                    dept:[],
+                },
+                pieData:[],
             }
         },
         computed:{
             waitting(){
-                return this.format_number(73123);
+                return this.format_number(this.number.userNum);
             },
             waitting1(){
                 return this.format_number(31331);
@@ -463,9 +464,32 @@
             }
         },
         mounted() {
+            getNum().then(res=>{
+                for(let i =0;i<res.data.data.length;i++){
+                    let obj=new Object();
+                    obj.name=res.data.data[i].n_dept;
+                    obj.value=res.data.data[i].num;
+                    this.pieData[i]=obj;
+                }
+                console.log(this.pieData);
+            });
+            this.drawchart1();
             document.getElementById("userManage").scrollIntoView({ block: 'start', behavior: 'smooth' });
             setTimeout(this.changeLoading,1000);
             this.drawchart();
+            searchUser('').then(res=>{
+                this.number.userNum = res.data.data.length;
+                this.tableData = res.data.data;
+                for(let i=0;i<res.data.data.length;i++){
+                    this.userInfo.dept.push(res.data.data[i].ndept);
+                }
+                /**
+                 *去重
+                 */
+                this.userInfo.dept = new Set(this.userInfo.dept);
+                // console.log(this.userInfo.dept);
+                // console.log(res.data.data);
+            });
         }
     }
 </script>
@@ -533,7 +557,7 @@
         color: #52616b;
         font-weight: 700;
     }
-    /deep/ .el-table tbody tr:hover>td { background-color: transparent;color:#fff}
+    /deep/ .el-table tbody tr:hover>td { background-color: transparent;color:#fff;cursor: pointer}
     .el-table::before {
         left: 0;
         bottom: 0;

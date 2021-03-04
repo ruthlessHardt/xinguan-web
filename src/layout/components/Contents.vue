@@ -659,8 +659,7 @@
 
             });
             this.drawBMap();
-            // this.drawMap();
-            // this.drawLine();
+            document.getElementById("contents").scrollIntoView({ block: 'start', behavior: 'smooth' });
 
         }
     }
