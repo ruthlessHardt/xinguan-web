@@ -54,11 +54,21 @@
                     </el-card>
                 </el-col>
                 <el-col :span="18">
-                    <el-card class="card2">
-                        <div id = "chart1" style="width: 100%;height: 300px;margin:0 0px -30px 0px;"></div>
-                    </el-card>
+                    <template>
+                        <div class="carousel">
+                            <el-carousel height="340px" direction="horizontal" :autoplay="true" interval="2000">
+                                <el-carousel-item v-for="item in 10" :key="item">
+                                    <h3 class="medium">{{ item }}</h3>
+                                </el-carousel-item>
+                            </el-carousel>
+                        </div>
+                    </template>
                 </el-col>
             </el-row>
+            <br>
+            <el-card class="card2">
+                <div id = "chart1" style="width: 100%;height: 300px;margin:0 0px -30px 0px;"></div>
+            </el-card>
             <br>
             <el-card class="card1">
                 <div>
@@ -274,68 +284,123 @@
                 var option;
 
                 option = {
+                    title: {
+                        text: '动态数据',
+                        subtext: '纯属虚构'
+                    },
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {
-                            type: 'cross',
-                            crossStyle: {
-                                color: '#999'
+                            type: 'line',
+                            label: {
+                                backgroundColor: '#283b56'
                             }
-                        }
+                        },
+                        transitionDuration: 0,
                     },
                     legend: {
-                        data: ['蒸发量', '降水量', '平均温度']
+                        data:['最新成交价', '预购队列']
+                    },
+                    dataZoom: {
+                        show: false,
+                        start: 0,
+                        end: 100
                     },
                     xAxis: [
                         {
                             type: 'category',
-                            data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-                            axisPointer: {
-                                type: 'shadow'
-                            }
+                            boundaryGap: true,
+                            data: (function (){
+                                var now = new Date();
+                                var res = [];
+                                var len = 10;
+                                while (len--) {
+                                    res.unshift(now.toLocaleTimeString().replace(/^\D*/,''));
+                                    now = new Date(now - 2000);
+                                }
+                                return res;
+                            })()
+                        },
+                        {
+                            type: 'category',
+                            boundaryGap: true,
+                            data: (function (){
+                                var res = [];
+                                var len = 10;
+                                while (len--) {
+                                    res.push(10 - len - 1);
+                                }
+                                return res;
+                            })()
                         }
                     ],
                     yAxis: [
                         {
                             type: 'value',
-                            name: '水量',
+                            scale: true,
+                            name: '价格',
+                            max: 30,
                             min: 0,
-                            max: 250,
-                            interval: 50,
-                            axisLabel: {
-                                formatter: '{value} ml'
-                            }
+                            boundaryGap: [0.2, 0.2]
                         },
                         {
                             type: 'value',
-                            name: '温度',
+                            scale: true,
+                            name: '预购量',
+                            max: 1200,
                             min: 0,
-                            max: 25,
-                            interval: 5,
-                            axisLabel: {
-                                formatter: '{value} °C'
-                            }
+                            boundaryGap: [0.2, 0.2]
                         }
                     ],
                     series: [
                         {
-                            name: '蒸发量',
+                            name: '预购队列',
                             type: 'bar',
-                            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-                        },
-                        {
-                            name: '降水量',
-                            type: 'bar',
-                            data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
-                        },
-                        {
-                            name: '平均温度',
-                            type: 'line',
+                            xAxisIndex: 1,
                             yAxisIndex: 1,
-                            data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+                            data: (function (){
+                                var res = [];
+                                var len = 10;
+                                while (len--) {
+                                    res.push(Math.round(Math.random() * 1000));
+                                }
+                                return res;
+                            })()
+                        },
+                        {
+                            name: '最新成交价',
+                            type: 'line',
+                            data: (function (){
+                                var res = [];
+                                var len = 0;
+                                while (len < 10) {
+                                    res.push((Math.random()*10 + 5).toFixed(1) - 0);
+                                    len++;
+                                }
+                                return res;
+                            })()
                         }
                     ]
                 };
+
+                app.count = 11;
+                setInterval(function (){
+                    var axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
+
+                    var data0 = option.series[0].data;
+                    var data1 = option.series[1].data;
+                    data0.shift();
+                    data0.push(Math.round(Math.random() * 1000));
+                    data1.shift();
+                    data1.push((Math.random() * 10 + 5).toFixed(1) - 0);
+
+                    option.xAxis[0].data.shift();
+                    option.xAxis[0].data.push(axisData);
+                    option.xAxis[1].data.shift();
+                    option.xAxis[1].data.push(app.count++);
+
+                    myChart.setOption(option);
+                }, 2100);
                 option && myChart.setOption(option);
             },
         },
@@ -400,5 +465,25 @@
     .card3{
         background-color: #99a9bf;
         border: none;
+    }
+    .el-carousel__item h3 {
+        color: #475669;
+        font-size: 14px;
+        opacity: 0.75;
+        line-height: 200px;
+        margin: 0;
+    }
+
+    .el-carousel__item:nth-child(2n) {
+        background-color: #99a9bf;
+    }
+
+    .el-carousel__item:nth-child(2n+1) {
+        background-color: #d3dce6;
+    }
+    .carousel{
+        text-align: center;
+        justify-content: center;
+        align-items: center;
     }
 </style>
