@@ -44,7 +44,37 @@ const router = new VueRouter({
                 {
                     name:"materialIn",
                     path:"/materialIn",
-                    component:()=>import('@/views/buisness/materialIn.vue')
+                    component:()=>import('@/views/buisness/materialIn.vue'),
+                },
+                {
+                    name:"materialOut",
+                    path:"/materialOut",
+                    component:()=>import('@/views/buisness/materialOut.vue'),
+                },
+                {
+                    name:"materialDistribution",
+                    path:"/materialDistribution",
+                    component:()=>import('@/views/buisness/materialDistribution.vue'),
+                },
+                {
+                    name:"materialInfo",
+                    path:"/materialInfo",
+                    component:()=>import('@/views/buisness/materialInfo.vue'),
+                },
+                {
+                    name:"materialCategory",
+                    path:"/materialCategory",
+                    component:()=>import('@/views/buisness/materialCategory.vue'),
+                },
+                {
+                    name:"inStorage",
+                    path:"/inStorage",
+                    component:()=>import('@/views/buisness/inStorage.vue')
+                },
+                {
+                    name:"material",
+                    path:"/material",
+                    component:()=>import('@/views/buisness/material.vue')
                 },
                 {
                     name:"userProfile",

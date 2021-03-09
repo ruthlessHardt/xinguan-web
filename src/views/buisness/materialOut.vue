@@ -1,6 +1,6 @@
 <template>
     <div id="materialIn"
-            v-loading="loading" fullscreen
+         v-loading="loading" fullscreen
          element-loading-background="rgba(0, 0, 0, 0.8)"
          v-loading.fullscreen.lock="fullscreenLoading">
         <div>
@@ -10,7 +10,7 @@
                         <el-row :gutter="21">
                             <el-col :span="22">
                                 <div>
-                                    入库记录 <span style="margin-left: 2%;color: #00917c;font-weight: 700">2,000</span>
+                                    出库记录 <span style="margin-left: 2%;color: #00917c;font-weight: 700">2,000</span>
                                 </div>
                             </el-col>
                             <el-col :span="2">
@@ -29,7 +29,7 @@
                     <el-card class="card3">
                         <div class="top">
                             <div class="title">
-                                已入库
+                                已出库
                             </div>
                             <span>5,000</span>
                         </div>
@@ -112,37 +112,37 @@
                     </el-row>
                 </div>
                 <el-divider></el-divider>
-            <el-table
-                    border
-                    :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-                    style="width: 100%;">
-                <el-table-column
-                        label="Date"
-                        prop="date">
-                </el-table-column>
-                <el-table-column
-                        label="Name"
-                        prop="name">
-                </el-table-column>
-                <el-table-column
-                        align="right">
-                    <template slot="header" slot-scope="scope">
-                        <el-input
-                                v-model="search"
-                                size="mini"
-                                placeholder="输入关键字搜索"/>
-                    </template>
-                    <template slot-scope="scope">
-                        <el-button
-                                size="mini"
-                                @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                        <el-button
-                                size="mini"
-                                type="danger"
-                                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
+                <el-table
+                        border
+                        :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                        style="width: 100%;">
+                    <el-table-column
+                            label="Date"
+                            prop="date">
+                    </el-table-column>
+                    <el-table-column
+                            label="Name"
+                            prop="name">
+                    </el-table-column>
+                    <el-table-column
+                            align="right">
+                        <template slot="header" slot-scope="scope">
+                            <el-input
+                                    v-model="search"
+                                    size="mini"
+                                    placeholder="输入关键字搜索"/>
+                        </template>
+                        <template slot-scope="scope">
+                            <el-button
+                                    size="mini"
+                                    @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                            <el-button
+                                    size="mini"
+                                    type="danger"
+                                    @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
                 <el-pagination
                         layout="prev, pager, next"
                         background
@@ -391,7 +391,7 @@
         /*color: white;*/
     }
     .top>span{
-       font-weight: 700;
+        font-weight: 700;
         font-size: 20px;
     }
     .card2{

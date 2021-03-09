@@ -13,10 +13,10 @@ let token =  VueCookies.get("authorization");
  */
 export async function Userlogin(loginInfo) {
         let response = await axios.post(server+"/user/login",{
-            params:{
+
                 nuName:loginInfo.username,
                 nPassword:loginInfo.password
-            },
+
         });
 
     return response;

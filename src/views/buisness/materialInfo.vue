@@ -10,7 +10,7 @@
                         <el-row :gutter="21">
                             <el-col :span="22">
                                 <div>
-                                    入库记录 <span style="margin-left: 2%;color: #00917c;font-weight: 700">2,000</span>
+                                    资料库 <span style="margin-left: 2%;color: #00917c;font-weight: 700">21,231,000</span>
                                 </div>
                             </el-col>
                             <el-col :span="2">
@@ -19,17 +19,18 @@
                                 </div>
                             </el-col>
                         </el-row>
-
                     </el-card>
                 </el-col>
             </el-row>
             <br>
+
+            <br>
             <el-row :gutter="20">
                 <el-col :span="6">
-                    <el-card class="card3">
+                    <el-card class="card4">
                         <div class="top">
                             <div class="title">
-                                已入库
+                                新入资料
                             </div>
                             <span>5,000</span>
                         </div>
@@ -38,7 +39,16 @@
                     <el-card class="card3">
                         <div class="top">
                             <div class="title">
-                                待审核
+                                近一周使用
+                            </div>
+                            <span>5,000</span>
+                        </div>
+                    </el-card>
+                    <br>
+                    <el-card class="card4">
+                        <div class="top">
+                            <div class="title">
+                                新进物资
                             </div>
                             <span>5,000</span>
                         </div>
@@ -47,16 +57,67 @@
                     <el-card class="card3">
                         <div class="top">
                             <div class="title">
-                                待审核
+                                库存剩余
+                            </div>
+                            <span>5,000</span>
+                        </div>
+                    </el-card>
+                    <br>
+                    <el-card class="card5">
+                        <div class="top">
+                            <div class="title">
+                                物资预警
+                            </div>
+                            <span>5,000</span>
+                        </div>
+                    </el-card>
+                    <br>
+                    <el-card class="card3">
+                        <div class="top">
+                            <div class="title">
+                                新进物资
                             </div>
                             <span>5,000</span>
                         </div>
                     </el-card>
                 </el-col>
                 <el-col :span="18">
+                    <div>
+                        <el-row :gutter="20">
+                            <el-col :span="23">
+                                <el-button type="primary" icon="el-icon-edit">物资信息修改</el-button>
+                                <el-button type="success" icon="el-icon-search">查询物资信息</el-button>
+                                <el-button type="info" icon="el-icon-finished">物资资料添加</el-button>
+                                <el-button type="warning" icon="el-icon-sort-down">导出资料清单</el-button>
+                            </el-col>
+                        </el-row>
+                    </div>
+                    <br>
                     <el-card class="card2">
                         <div id = "chart1" style="width: 100%;height: 300px;margin:0 0px -30px 0px;"></div>
                     </el-card>
+                    <br>
+
+                    <br><br>
+                    <div>
+                        <el-row :gutter="80">
+                            <el-col :span="12">
+                                <el-card class="card2">
+                                    <div slot="header" class="clearfix">
+                                        <span>方案建议1</span>
+                                        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                                    </div>
+                                    <div>
+                                        <el-tag>加进口罩2000副</el-tag>&nbsp&nbsp
+                                        <el-tag type="success">标签三</el-tag>&nbsp&nbsp
+                                        <el-tag>加进口罩2000副</el-tag>&nbsp&nbsp
+                                        <el-tag>加进口罩2000副</el-tag>&nbsp&nbsp
+                                        <el-tag type="danger">标签五</el-tag>&nbsp&nbsp
+                                    </div>
+                                </el-card>
+                            </el-col>
+                        </el-row>
+                    </div>
                 </el-col>
             </el-row>
             <br>
@@ -105,9 +166,6 @@
                         </el-col>
                         <el-col :span="1.4">
                             <el-button size="small" type="primary" icon="el-icon-plus" @click="ruku">入库</el-button>
-                        </el-col>
-                        <el-col :span="2">
-                            <el-button size="small" type="warning" icon="el-icon-download">导出</el-button>
                         </el-col>
                     </el-row>
                 </div>
@@ -274,68 +332,37 @@
                 var option;
 
                 option = {
+                    legend: {},
+                    tooltip: {
+                        trigger: 'axis',
+                        showContent: false
+                    },
+                    dataset: {
+                        source: [
+                            ['product', '2012', '2013', '2014', '2015', '2016', '2017'],
+                            ['Milk Tea', 56.5, 82.1, 88.7, 70.1, 53.4, 85.1],
+                            ['Matcha Latte', 51.1, 51.4, 55.1, 53.3, 73.8, 68.7],
+                            ['Cheese Cocoa', 40.1, 62.2, 69.5, 36.4, 45.2, 32.5],
+                            ['Walnut Brownie', 25.2, 37.1, 41.2, 18, 33.9, 49.1]
+                        ]
+                    },
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {
-                            type: 'cross',
-                            crossStyle: {
-                                color: '#999'
-                            }
+                            type: 'cross'
                         }
                     },
-                    legend: {
-                        data: ['蒸发量', '降水量', '平均温度']
-                    },
-                    xAxis: [
-                        {
-                            type: 'category',
-                            data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-                            axisPointer: {
-                                type: 'shadow'
-                            }
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            type: 'value',
-                            name: '水量',
-                            min: 0,
-                            max: 250,
-                            interval: 50,
-                            axisLabel: {
-                                formatter: '{value} ml'
-                            }
-                        },
-                        {
-                            type: 'value',
-                            name: '温度',
-                            min: 0,
-                            max: 25,
-                            interval: 5,
-                            axisLabel: {
-                                formatter: '{value} °C'
-                            }
-                        }
-                    ],
+                    xAxis: {type: 'category'},
+                    yAxis: {gridIndex: 0},
+                    grid: {top: '20%'},
                     series: [
-                        {
-                            name: '蒸发量',
-                            type: 'bar',
-                            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-                        },
-                        {
-                            name: '降水量',
-                            type: 'bar',
-                            data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
-                        },
-                        {
-                            name: '平均温度',
-                            type: 'line',
-                            yAxisIndex: 1,
-                            data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
-                        }
+                        {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
+                        {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
+                        {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
+                        {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
                     ]
                 };
+
                 option && myChart.setOption(option);
             },
         },
@@ -352,6 +379,7 @@
         margin: -20px;
         padding: 2.2%  3% 0% 3%;
         /*background-color: #545372;*/
+        background:linear-gradient(150deg,#2222,#113222),url("https://s3.jpg.cm/2021/02/28/zDuDS.jpg") fixed;
     }
     /deep/ .el-table, /deep/ .el-table__expanded-cell{
         background-color: transparent;
@@ -395,10 +423,18 @@
         font-size: 20px;
     }
     .card2{
-        min-height: 340px;
+        min-height: 266px;
     }
     .card3{
         background-color: #99a9bf;
+        border: none;
+    }
+    .card4{
+        background-color: #62d2a2;
+        border: none;
+    }
+    .card5{
+        background-color: #ea8a8a;
         border: none;
     }
 </style>

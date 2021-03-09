@@ -4,65 +4,15 @@
          element-loading-background="rgba(0, 0, 0, 0.8)"
          v-loading.fullscreen.lock="fullscreenLoading">
         <div>
-            <el-row :gutter="20">
-                <el-col :span="24">
-                    <el-card>
-                        <el-row :gutter="21">
-                            <el-col :span="22">
-                                <div>
-                                    入库记录 <span style="margin-left: 2%;color: #00917c;font-weight: 700">2,000</span>
-                                </div>
-                            </el-col>
-                            <el-col :span="2">
-                                <div>
-                                    <el-link :underline="false" target="_blank">饿了么</el-link>
-                                </div>
-                            </el-col>
-                        </el-row>
-
-                    </el-card>
-                </el-col>
-            </el-row>
-            <br>
-            <el-row :gutter="20">
-                <el-col :span="6">
-                    <el-card class="card3">
-                        <div class="top">
-                            <div class="title">
-                                已入库
-                            </div>
-                            <span>5,000</span>
-                        </div>
-                    </el-card>
-                    <br>
-                    <el-card class="card3">
-                        <div class="top">
-                            <div class="title">
-                                待审核
-                            </div>
-                            <span>5,000</span>
-                        </div>
-                    </el-card>
-                    <br>
-                    <el-card class="card3">
-                        <div class="top">
-                            <div class="title">
-                                待审核
-                            </div>
-                            <span>5,000</span>
-                        </div>
-                    </el-card>
-                </el-col>
-                <el-col :span="18">
-                    <el-card class="card2">
-                        <div id = "chart1" style="width: 100%;height: 300px;margin:0 0px -30px 0px;"></div>
-                    </el-card>
-                </el-col>
-            </el-row>
-            <br>
+            <div class="title">
+                发放记录
+            </div>
             <el-card class="card1">
                 <div>
                     <el-row :gutter="13">
+                        <el-col :span="1.5">
+                            <span class="lab">发放单号</span>
+                        </el-col>
                         <el-col :span="3">
                             <el-select size="small" v-model="value" clearable placeholder="请选择类型">
                                 <el-option
@@ -104,7 +54,7 @@
                             <el-button size="small" type="primary" icon="el-icon-search">查询</el-button>
                         </el-col>
                         <el-col :span="1.4">
-                            <el-button size="small" type="primary" icon="el-icon-plus" @click="ruku">入库</el-button>
+                            <el-button size="small" type="primary" icon="el-icon-plus" @click="ruku">发放</el-button>
                         </el-col>
                         <el-col :span="2">
                             <el-button size="small" type="warning" icon="el-icon-download">导出</el-button>
@@ -113,7 +63,6 @@
                 </div>
                 <el-divider></el-divider>
             <el-table
-                    border
                     :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
                     style="width: 100%;">
                 <el-table-column
@@ -152,6 +101,20 @@
             </el-card>
         </div>
         <br>
+        <div>
+            <el-row :gutter="40">
+                <el-col :span="12">
+                    <el-card class="card1">
+                        s
+                    </el-card>
+                </el-col>
+                <el-col :span="12">
+                    <el-card class="card1">
+                        s
+                    </el-card>
+                </el-col>
+            </el-row>
+        </div>
 
         <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
             <el-form :model="form">
@@ -175,7 +138,6 @@
 </template>
 
 <script>
-    import * as echarts from 'echarts';
     export default {
         data() {
             return {
@@ -268,79 +230,8 @@
                 // this.dialogFormVisible = true;
                 this.$router.push("/inStorage");
             },
-            drawChart(){
-                var chartDom = document.getElementById('chart1');
-                var myChart = echarts.init(chartDom);
-                var option;
-
-                option = {
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                            type: 'cross',
-                            crossStyle: {
-                                color: '#999'
-                            }
-                        }
-                    },
-                    legend: {
-                        data: ['蒸发量', '降水量', '平均温度']
-                    },
-                    xAxis: [
-                        {
-                            type: 'category',
-                            data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-                            axisPointer: {
-                                type: 'shadow'
-                            }
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            type: 'value',
-                            name: '水量',
-                            min: 0,
-                            max: 250,
-                            interval: 50,
-                            axisLabel: {
-                                formatter: '{value} ml'
-                            }
-                        },
-                        {
-                            type: 'value',
-                            name: '温度',
-                            min: 0,
-                            max: 25,
-                            interval: 5,
-                            axisLabel: {
-                                formatter: '{value} °C'
-                            }
-                        }
-                    ],
-                    series: [
-                        {
-                            name: '蒸发量',
-                            type: 'bar',
-                            data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-                        },
-                        {
-                            name: '降水量',
-                            type: 'bar',
-                            data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
-                        },
-                        {
-                            name: '平均温度',
-                            type: 'line',
-                            yAxisIndex: 1,
-                            data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
-                        }
-                    ]
-                };
-                option && myChart.setOption(option);
-            },
         },
         mounted() {
-            this.drawChart();
             setTimeout(this.changeLoading,1000);
         }
     }
@@ -348,10 +239,10 @@
 <style scoped>
     #materialIn{
         width: auto;
-        height:100%;
+        height:240vh;
         margin: -20px;
         padding: 2.2%  3% 0% 3%;
-        /*background-color: #545372;*/
+        background-color: #545372;
     }
     /deep/ .el-table, /deep/ .el-table__expanded-cell{
         background-color: transparent;
@@ -364,16 +255,10 @@
     }
 
     /deep/ .el-table {
-        /*color: #52616b;*/
+        color: #52616b;
         font-weight: 700;
     }
-    /deep/ .el-table tbody tr:hover>td {
-        /*background-color: transparent;*/
-        /*color:#fff;*/
-        color: #ef6c57;
-        cursor: pointer
-    }
-
+    /deep/ .el-table tbody tr:hover>td { background-color: transparent;color:#fff;cursor: pointer}
     .el-table::before {
         left: 0;
         bottom: 0;
@@ -381,24 +266,20 @@
         height: 0px;
     }
     .card1{
-        /*background-color: #2B2C3E;*/
-
-        /*border: none;*/
+        background-color: #2B2C3E;
+        border: none;
     }
     .title{
         font-size: 26px;
         font-weight: 200;
-        /*color: white;*/
+        margin-bottom: 1%;
+        color: white;
     }
-    .top>span{
-       font-weight: 700;
-        font-size: 20px;
-    }
-    .card2{
-        min-height: 340px;
-    }
-    .card3{
-        background-color: #99a9bf;
-        border: none;
+    .lab{
+        color: white;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: flex;
     }
 </style>
