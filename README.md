@@ -10,4 +10,4 @@ github 暂时不更了。
 
 未来计划：将各模块功能升级合并成一个智慧型应急仓储中心。
 
-使用SpringCloud Alibaba 全家桶 + Vue + （element-UI或者Ant Design）
+使用SpringCloud Alibaba 全家桶 + Vue + （element-UI或者Ant Design）进行分布式搭建
