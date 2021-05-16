@@ -6,7 +6,9 @@ github 暂时不更了。
 
 功能目前只是些简单的功能，以后会进行升级更新。
 
-
+gitee部分项目已隐藏
+地址：
+https://gitee.com/shandenatouyouhai
 
 未来计划：将各模块功能升级合并成一个智慧型应急仓储中心。
 
