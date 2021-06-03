@@ -356,6 +356,7 @@
         },
         mounted() {
             this.drawChart();
+            document.getElementById("materialIn").scrollIntoView({ block: 'start', behavior: 'smooth' });
             setTimeout(this.changeLoading,1000);
         }
     }

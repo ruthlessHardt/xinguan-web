@@ -441,8 +441,8 @@
         mounted() {
             setTimeout(this.changeLoading,1000);
             this.chart1();
-            searchUser(this.userInfo).then(res=>{
-                console.log(res.data);
+            searchUser(this.userInfo,'').then(res=>{
+                // console.log(res.data);
                 if(res.data!=''){
                     this.userInfoVo.username = res.data.data[0].nuName;
                     this.userInfoVo.sex = res.data.data[0].nsex;

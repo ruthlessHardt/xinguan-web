@@ -63,6 +63,7 @@
             }
         },
         mounted() {
+            document.getElementById("material").scrollIntoView({ block: 'start', behavior: 'smooth' });
             setTimeout(this.changeLoading,1000);
         }
     }

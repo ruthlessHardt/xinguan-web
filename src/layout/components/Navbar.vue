@@ -38,7 +38,7 @@ export default {
     },
     changeStatus(){
       this.status =! this.status;
-      console.log(this.status);
+      // console.log(this.status);
         this.$emit('changeStatus',this.status);
     }
   }

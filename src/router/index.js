@@ -11,6 +11,7 @@ const router = new VueRouter({
     mode:"history",
     // 5.2 配置路由对象数组
     routes: [
+        { path: '*', component:()=>import('@/components/NotFoundComponent.vue') },
         {
             name:"login",
             path:"/",
@@ -72,15 +73,52 @@ const router = new VueRouter({
                     component:()=>import('@/views/buisness/inStorage.vue')
                 },
                 {
+                    name:"grantMaterial",
+                    path:"/grantMaterial",
+                    component:()=>import('@/views/buisness/grantMaterial.vue')
+                },
+                {
                     name:"material",
                     path:"/material",
                     component:()=>import('@/views/buisness/material.vue')
+                },
+
+                {
+                    name:"inventory",
+                    path:"/inventory",
+                    component:()=>import('@/views/buisness/inventory.vue')
+                },
+                {
+                    name:"inventoryList",
+                    path:"/inventoryList",
+                    component:()=>import('@/views/buisness/inventoryList.vue')
                 },
                 {
                     name:"userProfile",
                     path:"/userProfile",
                     component:()=>import('@/views/userProfile.vue')
                 },
+                {
+                    name:"OperatorLogs",
+                    path:"/OperatorLogs",
+                    component:()=>import('@/views/system/OperatorLogs.vue')
+                },
+                {
+                    name:"authority",
+                    path:"/authority",
+                    component:()=>import('@/views/system/authority.vue')
+                },
+                {
+                    name:"roleManage",
+                    path:"/roleManage",
+                    component:()=>import('@/views/system/roleManage.vue')
+                },
+                {
+                    name:"health",
+                    path:"/health",
+                    component:()=>import('@/views/health/health.vue')
+                },
+
             ],
         },
     ]

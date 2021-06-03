@@ -16,17 +16,14 @@
                            <el-button type="primary" round @click="login">登录</el-button>
                        </div>
                        <div class="contentItem1">
-                           <span class="text1">新冠物资管理系统</span><br><br>
+                           <span class="text1">新冠疫情物资管理系统</span><br><br>
                            <span class="text2">XinGuan</span>
                            <p class="text_p">
                                疫情数据来自国家卫健委、各省市卫健委、政府机构<br>
                            </p>
                            <el-link type="warning" href="http://www.nhc.gov.cn/xcs/xxgzbd/gzbd_index.shtml">国家卫健委官网链接</el-link>
                        </div>
-                       <div class="contentItem2">
-<!--                           <i class="el-icon-hot-water"></i>-->
-                       </div>
-                   </div>
+                     </div>
                 </el-card>
 
             </div>
@@ -74,7 +71,11 @@
                     this.changeLoading();
                     Userlogin(this.loginInfo).then(res=>{
                         if(res.data.code===200){
+                            // console.log(res.data.data);
                             localStorage.setItem("nid",res.data.data.nid);
+                            localStorage.setItem("name",res.data.data.nuName);
+                            localStorage.setItem("tel",res.data.data.nphone);
+                            localStorage.setItem("ntype",res.data.data.ntype);
                             this.$cookies.set("authorization",res.headers.authorization);   // return this
                             this.$router.push('/layout');
                             // console.log(this.$cookies.get("authorization"));
@@ -82,10 +83,11 @@
                                 message:'您已成功着陆了！',
                                 type:'success',
                             });
+
                         }else if(res.data.code=='400'){
                             this.loading=false;
                             this.$message({
-                                message: '您输入的用户名或密码不对鸭！',
+                                message: res.data.msg,
                                 type: 'warning',
                                 duration:'5000'
                             });
@@ -112,7 +114,8 @@
     #login{
         width: 100%;
         height: 100vh;
-        background-image: url("https://s3.jpg.cm/2021/02/04/BrqXC.jpg");
+        /*background-image: url("https://s3.jpg.cm/2021/02/04/BrqXC.jpg");*/
+        background: url("https://s3.jpg.cm/2021/05/16/MEdw4.jpg");
         background-size: cover;
         text-align: center;
         justify-content: center;
@@ -125,20 +128,21 @@
     }
     .el-card{
         border: none;
-        background-image: url("images/bg.jpg");
+        /*background-image: url("images/bg.jpg");*/
+        background-image: url("https://s3.jpg.cm/2021/02/04/BrqXC.jpg");
         background-size: cover;
         border-radius: 10px;
     }
     .content{
         width: 110%;
-        height: 500px;
+        height: 470px;
         margin: -20px;
         background-color: rgba(0,0,0,0.6);
         display: flex;
         text-align: center;
     }
     .contentItem{
-        width: 60%;
+        width: 600px;
         height: 100%;
         background-color: #f6f5f5;
         padding-top: 3%;
@@ -146,24 +150,13 @@
         text-align: center;
     }
     .contentItem1{
-        max-width: 26%;
-        width: auto;
+        max-width: 27%;
+        width: 500px;
         height: 100%;
         text-align: center;
         justify-content: center;
         color: #d3dce6;
         padding-top: 5%;
-    }
-    .contentItem2{
-        min-width: 3%;
-        width: auto;
-        color: #d3dce6;
-        /*background-color: #ef6c57;*/
-        font-size: 40px;
-        height: 100%;
-        padding-top: 20%;
-        transition: 1000ms;
-        text-align: center;
     }
     .text1{
         font-size: 25px;
@@ -193,7 +186,7 @@
     }
     label{
         color: #99a9bf;
-        font-size: 12px;
+        /*font-size: 18px;*/
     }
     .el-button{
         margin-top:10%;
@@ -210,6 +203,7 @@
         right: 100px;
     }
     .contentItem:hover{
-        width: 70%;
+        width: 66%;
     }
+
 </style>

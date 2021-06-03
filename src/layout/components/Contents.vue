@@ -2,278 +2,276 @@
     <div id="contents" v-loading="loading"
          element-loading-background="rgba(0, 0, 0, 0.8)"
          v-loading.fullscreen.lock="fullscreenLoading">
-        <div style="float: right">
+        <div style="padding: 50px">
+            <div style="float: right">
             <span style="text-align: center;font-size: 30px;font-family:华文琥珀">
             XINGUAN
             </span>
-            <span>统筹管理物资</span>
-        </div>
-        <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/contents' }">全国疫情</el-breadcrumb-item>
-        </el-breadcrumb>
-        <el-row :gutter="40" type="flex">
-            <el-col :span="10">
-                <span style="font-size: 25px;font-weight: 700">{{dataInfo.country.childStatistic}}</span>
-                <span style="color: slategrey;padding-left:5%">更新截止{{dataInfo2.lastUpdateTime}}</span>
-            </el-col>
-            <el-col :span="12"></el-col>
-            <div>
-                <el-tooltip class="item" effect="dark" content="数据来自国家卫健委，各省市卫健委，各省市政府" placement="left">
-                    <i class="fa fa-question-circle-o"></i>
-                </el-tooltip>
-                说明
+                <span>统筹管理物资</span>
             </div>
-        </el-row>
-        <br>
-        <el-row :gutter="20">
-            <el-col :span="6" >
-                <el-card>
-                    <div slot="header" class="clearfix">
-                        <span style="font-size:18px;color: #1f2d3d;font-weight: 700">累计</span>
-                    </div>
-                    <div class="count">
-                        <el-row :gutter="20">
-                            <el-col :span="6" style="min-width: 160px">
-                                <div class="num-size num">{{dataInfo2.chinaTotal.confirm}}</div>
-                                <div class="num-size1">累计确诊</div>
-                                <div>较昨日<span class="num">+{{dataInfo2.chinaAdd.confirm}}</span></div>
-                                <div class="diver"></div>
-                                <div class="diver"></div>
-                            </el-col>
-                            <el-col :span="6" style="min-width: 160px">
-                                <div class="num-size num3">{{dataInfo2.chinaTotal.dead}}</div>
-                                <div class="num-size1">累计死亡</div>
-                                <div>较昨日<span class="num3">+{{dataInfo2.chinaAdd.dead}}</span></div>
-                                <div class="diver"></div>
-                                <div class="diver"></div>
-                            </el-col>
-                            <el-col :span="6" style="min-width: 160px">
-                                <div class="num-size num2">{{dataInfo2.chinaTotal.heal}}</div>
-                                <div class="num-size1">累计治愈</div>
-                                <div>较昨日<span class="num2">+{{dataInfo2.chinaAdd.heal}}</span></div>
-                                <div class="diver"></div>
-                                <div class="diver"></div>
-                            </el-col>
-
-                            <el-col :span="6" style="min-width: 160px">
-                                <div class="num-size num4">{{dataInfo2.chinaTotal.importedCase}}</div>
-                                <div class="num-size1">输入病例</div>
-                                <div>较昨日<span class="num4">+{{dataInfo2.chinaAdd.importedCase}}</span></div>
-                                <div class="diver"></div>
-                                <div class="diver"></div>
-                            </el-col>
-                            <el-col :span="6" style="min-width: 160px">
-                                <div class="num-size num4">{{dataInfo2.chinaTotal.noInfect}}</div>
-                                <div class="num-size1">无症状</div>
-                                <div>较昨日<span class="num4">+{{dataInfo2.chinaAdd.noInfect}}</span></div>
-                                <div class="diver"></div>
-                                <div class="diver"></div>
-                            </el-col>
-<!--                            <el-col :span="6" style="min-width: 160px">-->
-<!--                                <div class="num-size num1">{{dataInfo2.areaTree.total.deadRate}}%</div>-->
-<!--                                <div class="num-size1">死亡率</div>-->
-<!--                                <div><span class="num2">———</span></div>-->
-<!--                                <div class="diver"></div>-->
-<!--                                <div class="diver"></div>-->
-<!--                            </el-col>-->
-<!--                            <el-col :span="6" style="min-width: 160px">-->
-<!--                                <div class="num-size num5">{{dataInfo2.areaTree.total.healRate}}%</div>-->
-<!--                                <div class="num-size1">治愈率</div>-->
-<!--                                <div><span class="num2">———</span></div>-->
-<!--                                <div class="diver"></div>-->
-<!--                                <div class="diver"></div>-->
-<!--                            </el-col>-->
-                        </el-row>
-                    </div>
-                </el-card>
-            </el-col>
-            <el-col :span="6">
-                <el-card class="box-card">
-                    <div slot="header" class="clearfix">
-                        <span style="font-size:18px;color: #1f2d3d;font-weight: 700">现有</span>
-                    </div>
-                    <div style="text-align: center">
-                        <el-row :gutter="2">
-                            <el-col :span="6" style="min-width: 160px">
-                                <div class="num-size num3">{{dataInfo2.chinaTotal.nowConfirm}}</div>
-                                <div class="num-size1">现有确诊</div>
-                                <div>较昨日<span class="num3">+{{dataInfo2.chinaAdd.noInfect}}</span></div>
-                                <div class="diver"></div>
-                                <div class="diver"></div>
-                            </el-col>
-                            <el-col :span="6" style="min-width: 160px">
-                                <div class="num-size num6">{{dataInfo2.chinaTotal.nowSevere}}</div>
-                                <div class="num-size1">现有重症</div>
-                                <div>较昨日<span class="num6">{{dataInfo2.chinaAdd.nowSevere}}</span></div>
-                                <div class="diver"></div>
-                                <div class="diver"></div>
-                            </el-col>
-                            <el-col :span="6" style="min-width: 160px">
-                                <div class="num-size num4">{{dataInfo2.chinaTotal.suspect}}</div>
-                                <div class="num-size1">现有疑似</div>
-                                <div>较昨日<span class="num4">{{dataInfo2.chinaAdd.suspect}}</span></div>
-                                <div class="diver"></div>
-                                <div class="diver"></div>
-                            </el-col>
-                        </el-row>
-                    </div>
-                </el-card>
-                <br>
-                <el-card>
-                    <el-row>
-                        <el-col :span="6" style="min-width: 160px">
-                            <div class="num-size num1">{{dataInfo2.areaTree.total.deadRate}}%</div>
-                            <div class="num-size1">死亡率</div>
-                            <div><span class="num2">———</span></div>
-                            <div class="diver"></div>
-                        </el-col>
-                        <el-col :span="6" style="min-width: 160px">
-                            <div class="num-size num5">{{dataInfo2.areaTree.total.healRate}}%</div>
-                            <div class="num-size1">治愈率</div>
-                            <div><span class="num2">———</span></div>
-                            <div class="diver"></div>
-                        </el-col>
-                    </el-row>
-                </el-card>
-            </el-col>
-
-            <el-col :span="12">
-                <el-card>
-                    <div id="myChartChina" style="width:100%;height:390px;"></div>
-                </el-card>
-            </el-col>
-        </el-row>
-        <br>
-        <el-row :gutter="20">
-            <el-col :span="12">
-                <el-card>
-                    <div id="myChartChina1" style="width:100%;height:390px;"></div>
-                </el-card>
-            </el-col>
-            <el-col :span="12">
-                <el-card>
-                    <div id="myChartChina2" style="width:100%;height:390px;"></div>
-                </el-card>
-            </el-col>
-        </el-row>
-        <br>
-
-        <el-row :gutter="20">
-            <el-col :span="16">
-                <el-card>
-                    <div id="lineChart1" style="width:100%;height:390px;"></div>
-                </el-card>
-            </el-col>
-            <el-col :span="8">
-                <el-card>
-                    <div id="lineChart2" style="width:100%;height:390px;"></div>
-                </el-card>
-            </el-col>
-        </el-row>
-        <br>
-        <el-row :gutter="20">
-            <el-card>
-                <div id="myChart2" style="width:100%;height:430px;"></div>
-            </el-card>
-        </el-row>
-        <br>
-        <el-row :gutter="20">
-            <el-col>
-                <el-card>
-                    <div slot="header" class="clearfix">
-                        <span style="font-size:18px;color: #1f2d3d;font-weight: 700">全国各地疫情数据</span>
-                    </div>
-                    <div style="text-align: center">
-                        <div class="table">
-<!--                            row-key="__ob__.dep.id"-->
-<!--                            :tree-props="{children: 'children', }"-->
-                            <el-table
-                                    v-if="tableData!=''"
-                                    :data="tableData"
-                                    style="width: 100%;margin-bottom: 20px;"
-                                    height="780"
-                                    >
-                                <el-table-column
-                                        fixed
-                                        prop="name"
-                                        label="省份"
-                                        sortable
-                                        width="120">
-                                </el-table-column>
-                                <el-table-column
-                                        prop="total.confirm"
-                                        label="总确诊数"
-                                        sortable>
-                                </el-table-column>
-                                <el-table-column
-                                        prop="total.nowConfirm"
-                                        label="现存确诊"
-                                        sortable>
-                                </el-table-column>
-                                <el-table-column
-                                        prop="today.confirm"
-                                        label="新增确诊"
-                                        sortable>
-                                </el-table-column>
-                                <el-table-column
-                                        prop="total.dead"
-                                        label="死亡数"
-                                        sortable>
-                                </el-table-column>
-                                <el-table-column
-                                        prop="total.heal"
-                                        label="治愈数"
-                                        sortable>
-                                </el-table-column>
-                                <el-table-column
-                                        prop="total.suspect"
-                                        label="疑似"
-                                        sortable>
-                                </el-table-column>
-                                <el-table-column
-                                        prop="total.wzz"
-                                        label="无症状"
-                                        sortable>
-                                </el-table-column>
-                                <el-table-column
-                                        prop="today.wzz_add"
-                                        label="新增无症状"
-                                        sortable>
-                                </el-table-column>
-                                <el-table-column
-                                        prop="total.healRate"
-                                        label="治愈率(%)"
-                                        sortable>
-                                </el-table-column>
-                                <el-table-column
-                                        prop="total.deadRate"
-                                        label="死亡率(%)"
-                                        sortable>
-                                </el-table-column>
-                                <el-table-column
-                                        fixed="right"
-                                        label="操作"
-                                        width="100">
-                                    <template slot-scope="scope">
-                                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
+            <el-row :gutter="40" type="flex">
+                <el-col :span="10">
+                    <span style="font-size: 25px;font-weight: 700">{{dataInfo.country.childStatistic}}</span>
+                    <span style="color: slategrey;padding-left:5%">更新截止{{dataInfo2.lastUpdateTime}}</span>
+                </el-col>
+                <el-col :span="12"></el-col>
+                <div>
+                    <el-tooltip class="item" effect="dark" content="数据来自国家卫健委，各省市卫健委，各省市政府" placement="left">
+                        <i class="fa fa-question-circle-o"></i>
+                    </el-tooltip>
+                    说明
+                </div>
+            </el-row>
+            <br>
+            <el-row :gutter="20">
+                <el-col :span="6" >
+                    <el-card class="card1">
+                        <div slot="header" class="clearfix">
+                            <span style="font-size:18px;color: #1f2d3d;font-weight: 700">累计</span>
                         </div>
-                    </div>
-                </el-card>
-            </el-col>
-        </el-row>
-        <!--抽屉表格-->
-        <el-drawer
-                :title="tableDataItem.name+'地区疫情'"
-                :visible.sync="table"
-                direction="rtl"
-                size="50%">
+                        <div class="count">
+                            <el-row :gutter="20">
+                                <el-col :span="6" style="min-width: 160px">
+                                    <div class="num-size num">{{dataInfo2.chinaTotal.confirm}}</div>
+                                    <div class="num-size1">累计确诊</div>
+                                    <div>较昨日<span class="num">+{{dataInfo2.chinaAdd.confirm}}</span></div>
+                                    <div class="diver"></div>
+                                    <div class="diver"></div>
+                                </el-col>
+                                <el-col :span="6" style="min-width: 160px">
+                                    <div class="num-size num3">{{dataInfo2.chinaTotal.dead}}</div>
+                                    <div class="num-size1">累计死亡</div>
+                                    <div>较昨日<span class="num3">+{{dataInfo2.chinaAdd.dead}}</span></div>
+                                    <div class="diver"></div>
+                                    <div class="diver"></div>
+                                </el-col>
+                                <el-col :span="6" style="min-width: 160px">
+                                    <div class="num-size num2">{{dataInfo2.chinaTotal.heal}}</div>
+                                    <div class="num-size1">累计治愈</div>
+                                    <div>较昨日<span class="num2">+{{dataInfo2.chinaAdd.heal}}</span></div>
+                                    <div class="diver"></div>
+                                    <div class="diver"></div>
+                                </el-col>
+
+                                <el-col :span="6" style="min-width: 160px">
+                                    <div class="num-size num4">{{dataInfo2.chinaTotal.importedCase}}</div>
+                                    <div class="num-size1">输入病例</div>
+                                    <div>较昨日<span class="num4">+{{dataInfo2.chinaAdd.importedCase}}</span></div>
+                                    <div class="diver"></div>
+                                    <div class="diver"></div>
+                                </el-col>
+                                <el-col :span="6" style="min-width: 160px">
+                                    <div class="num-size num4">{{dataInfo2.chinaTotal.noInfect}}</div>
+                                    <div class="num-size1">无症状</div>
+                                    <div>较昨日<span class="num4">+{{dataInfo2.chinaAdd.noInfect}}</span></div>
+                                    <div class="diver"></div>
+                                    <div class="diver"></div>
+                                </el-col>
+                                <!--                            <el-col :span="6" style="min-width: 160px">-->
+                                <!--                                <div class="num-size num1">{{dataInfo2.areaTree.total.deadRate}}%</div>-->
+                                <!--                                <div class="num-size1">死亡率</div>-->
+                                <!--                                <div><span class="num2">———</span></div>-->
+                                <!--                                <div class="diver"></div>-->
+                                <!--                                <div class="diver"></div>-->
+                                <!--                            </el-col>-->
+                                <!--                            <el-col :span="6" style="min-width: 160px">-->
+                                <!--                                <div class="num-size num5">{{dataInfo2.areaTree.total.healRate}}%</div>-->
+                                <!--                                <div class="num-size1">治愈率</div>-->
+                                <!--                                <div><span class="num2">———</span></div>-->
+                                <!--                                <div class="diver"></div>-->
+                                <!--                                <div class="diver"></div>-->
+                                <!--                            </el-col>-->
+                            </el-row>
+                        </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="6">
+                    <el-card class="card0">
+                        <div slot="header" class="clearfix">
+                            <span style="font-size:18px;color: #1f2d3d;font-weight: 700">现有</span>
+                        </div>
+                        <div style="text-align: center">
+                            <el-row :gutter="2">
+                                <el-col :span="6" style="min-width: 160px">
+                                    <div class="num-size num3">{{dataInfo2.chinaTotal.nowConfirm}}</div>
+                                    <div class="num-size1">现有确诊</div>
+                                    <div>较昨日<span class="num3">+{{dataInfo2.chinaAdd.noInfect}}</span></div>
+                                    <div class="diver"></div>
+                                    <div class="diver"></div>
+                                </el-col>
+                                <el-col :span="6" style="min-width: 160px">
+                                    <div class="num-size num6">{{dataInfo2.chinaTotal.nowSevere}}</div>
+                                    <div class="num-size1">现有重症</div>
+                                    <div>较昨日<span class="num6">{{dataInfo2.chinaAdd.nowSevere}}</span></div>
+                                    <div class="diver"></div>
+                                    <div class="diver"></div>
+                                </el-col>
+                                <el-col :span="6" style="min-width: 160px">
+                                    <div class="num-size num4">{{dataInfo2.chinaTotal.suspect}}</div>
+                                    <div class="num-size1">现有疑似</div>
+                                    <div>较昨日<span class="num4">{{dataInfo2.chinaAdd.suspect}}</span></div>
+                                    <div class="diver"></div>
+                                    <div class="diver"></div>
+                                </el-col>
+                            </el-row>
+                        </div>
+                    </el-card>
+                    <br>
+                    <el-card class="card2">
+                        <el-row>
+                            <el-col :span="6" style="min-width: 160px">
+                                <div class="num-size num1">{{dataInfo2.areaTree.total.deadRate}}%</div>
+                                <div class="num-size1">死亡率</div>
+                                <div><span class="num2">———</span></div>
+                                <div class="diver"></div>
+                            </el-col>
+                            <el-col :span="6" style="min-width: 160px">
+                                <div class="num-size num5">{{dataInfo2.areaTree.total.healRate}}%</div>
+                                <div class="num-size1">治愈率</div>
+                                <div><span class="num2">———</span></div>
+                                <div class="diver"></div>
+                            </el-col>
+                        </el-row>
+                    </el-card>
+                </el-col>
+
+                <el-col :span="12">
+                    <el-card class="card3">
+                        <div id="myChartChina" style="width:100%;height:390px;"></div>
+                    </el-card>
+                </el-col>
+            </el-row>
+            <br>
+            <el-row :gutter="20">
+                <el-col :span="12">
+                    <el-card class="card3">
+                        <div id="myChartChina1" style="width:100%;height:390px;"></div>
+                    </el-card>
+                </el-col>
+                <el-col :span="12">
+                    <el-card class="card3">
+                        <div id="myChartChina2" style="width:100%;height:390px;"></div>
+                    </el-card>
+                </el-col>
+            </el-row>
+            <br>
+
+            <el-row :gutter="20">
+                <el-col :span="24">
+                    <el-card class="card4" shadow="never">
+                        <div id="lineChart1" style="width:100%;height:390px;"></div>
+                    </el-card>
+                </el-col>
+                <!--            <el-col :span="8">-->
+                <!--                <el-card>-->
+                <!--                    <div id="lineChart2" style="width:100%;height:390px;"></div>-->
+                <!--                </el-card>-->
+                <!--            </el-col>-->
+            </el-row>
+            <br>
+            <!--        <el-row :gutter="20">-->
+            <!--            <el-card>-->
+            <!--                <div id="myChart2" style="width:100%;height:430px;"></div>-->
+            <!--            </el-card>-->
+            <!--        </el-row>-->
+            <br>
+            <el-row :gutter="20">
+                <el-col>
+                    <el-card class="card5" shadow="never">
+                        <div slot="header" class="clearfix">
+                            <span style="font-size:18px;color: #1f2d3d;font-weight: 700">全国各地疫情数据</span>
+                        </div>
+                        <div style="text-align: center">
+                            <div class="table">
+                                <!--                            row-key="__ob__.dep.id"-->
+                                <!--                            :tree-props="{children: 'children', }"-->
+                                <el-table
+                                        v-if="tableData!=''"
+                                        :data="tableData"
+                                        style="width: 100%;margin-bottom: 20px;"
+                                        height="780"
+                                >
+                                    <el-table-column
+                                            fixed
+                                            prop="name"
+                                            label="省份"
+                                            sortable
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="total.confirm"
+                                            label="总确诊数"
+                                            sortable>
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="total.nowConfirm"
+                                            label="现存确诊"
+                                            sortable>
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="today.confirm"
+                                            label="新增确诊"
+                                            sortable>
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="total.dead"
+                                            label="死亡数"
+                                            sortable>
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="total.heal"
+                                            label="治愈数"
+                                            sortable>
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="total.suspect"
+                                            label="疑似"
+                                            sortable>
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="total.wzz"
+                                            label="无症状"
+                                            sortable>
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="today.wzz_add"
+                                            label="新增无症状"
+                                            sortable>
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="total.healRate"
+                                            label="治愈率(%)"
+                                            sortable>
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="total.deadRate"
+                                            label="死亡率(%)"
+                                            sortable>
+                                    </el-table-column>
+                                    <el-table-column
+                                            fixed="right"
+                                            label="操作"
+                                            width="100">
+                                        <template slot-scope="scope">
+                                            <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </div>
+                        </div>
+                    </el-card>
+                </el-col>
+            </el-row>
+            <!--抽屉表格-->
+            <el-drawer
+                    :title="tableDataItem.name+'地区疫情数据'"
+                    :visible.sync="table"
+                    direction="rtl"
+                    size="50%">
                 <el-table :data="tableDataItem.children"
-                    border  height="auto">
+                            height="auto"
+                style="color: #f6f5f5">
                     <el-table-column
-                            fixed
                             prop="name"
                             label="市地区"
                             sortable
@@ -325,8 +323,9 @@
                             sortable>
                     </el-table-column>
                 </el-table>
-            <!--图表显示-->
-        </el-drawer>
+                <!--图表显示-->
+            </el-drawer>
+        </div>
 
     </div>
 </template>
@@ -366,28 +365,9 @@
                 this.loading = false;
             },
             handleClick(row) {
-                console.log(row);
+                // console.log(row);
                 this.table= true;
                 this.tableDataItem = row;
-            },
-            drawBMap(){
-                // 百度地图API功能
-                var map = new BMap.Map("myChart2");    // 创建Map实例
-                // var point = new BMap.Point(118.804041,32.063021);
-                map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-                //IP获取定位
-                function myFun(result){
-                    var cityName = result.name;
-                    map.setCenter(cityName);
-                    map.centerAndZoom(cityName, 16);
-                }
-
-                var myCity = new BMap.LocalCity();
-                myCity.get(myFun);
-                // this.$notify({
-                //     title: '提示',
-                //     message: '这是一条不会自动关闭的消息',
-                // });
             },
     },
         mounted() {
@@ -487,7 +467,7 @@
                 let data = JSON.parse(res.data.data);
                 this.dataInfo2 = data;
                 this.tableData = data.areaTree[0].children;
-                console.log(this.tableData)
+                // console.log(this.tableData)
                 this.dataInfo2.areaTree = data.areaTree[0];
                 var myChartContainer = document.getElementById('myChartChina');
                 var myChartContainer1= document.getElementById('myChartChina1');
@@ -652,13 +632,7 @@
                 if (optionMap2 && typeof optionMap2 === "object") {
                     myChartChina2.setOption(optionMap2, true);
                 }
-                    // myChartChina.setOption(optionMap);
-                    // window.onresize=function(){
-                    //     myChartChina.resize();
-                    // }
-
             });
-            this.drawBMap();
             document.getElementById("contents").scrollIntoView({ block: 'start', behavior: 'smooth' });
 
         }
@@ -667,8 +641,11 @@
 
 <style scoped>
     #contents{
-        height: 88vh;
-        min-width: 1200px;
+        /*background: #d6e6f2;*/
+        background: #fff;
+        height: 145vh;
+        margin: -20px;
+        min-width: auto;
     }
 .el-card{
     text-align: center;
@@ -709,6 +686,76 @@
     #myChart2{
         border-radius: 3%;
     }
+    /deep/ .el-table, /deep/ .el-table__expanded-cell{
+        background-color: transparent;
+    }
+    /deep/ .el-table th,
+    /deep/ .el-table tr,
+    /deep/ .el-table td {
+        background-color: transparent;
+    }
+    .card0{
+        border: none;
+        border-radius: 10px;
+        /*background:rgba(0,0,0,0.1);*/
+        background: #ecf0f1;
+    }
+    .card1{
+        min-height: 434px;
+        border: none;
+        border-radius: 10px;
+        background: #ecf0f1;
+        /*background:rgba(0,0,0,0.1);*/
+    }
+    .card2{
+        /*background-color: transparent;*/
+        border-radius: 10px;
+        background: #ecf0f1;
+        /*background:rgba(0,0,0,0.1);*/
+        border: none;
+    }
+    .card3{
+        min-height: 434px;
+        border: none;
+        border-radius: 10px;
+        /*background:rgba(0,0,0,0.1);*/
+        background: #f1f2f6;
+    }
+    .card4{
+        min-height: 434px;
+        border: none;
+        border-radius: 10px;
+        background: transparent;
+        /*background:rgba(0,0,0,0.1);*/
+    }
+
+    .card5{
+        min-height: 434px;
+        border: none;
+        border-radius: 20px;
+        /*background:rgba(0,0,0,0.1);*/
+        background: transparent;
+    }
+    /*需要支持css3*/
+    ::-webkit-scrollbar {
+        /*隐藏滚轮*/
+        display: none;
+    }
+    /deep/ .el-drawer{
+        background: rgba(0,0,0,0.4);
+    }
+    /deep/ .el-drawer .el-table th {
+        font-size: 17px;
+    }
+    /deep/ .el-drawer .el-table tbody tr td {
+        font-weight: 700;
+    }
+    /deep/ .el-drawer .el-table tbody tr:hover>td { color:#16c79a;cursor: pointer}
+    /deep/  .el-drawer__header {
+        font-size: 22px;
+        color: #487e95;
+        background: rgba(19, 32, 42, 0.5) !important;
+    }
 </style>
 
 <!--效果去除父级和子级限制可实现-->
@@ -716,4 +763,7 @@
     .el-drawer.rtl{
         overflow: auto;
     }
+    /*.form .el-form-item__label{*/
+    /*    color: white;*/
+    /*}*/
 </style>

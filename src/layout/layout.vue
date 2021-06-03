@@ -3,7 +3,7 @@
         <!-- 头部高度设为50px（默认60px） -->
         <el-header height="50px">
             <!-- logo -->
-            <a class="logo" href="/home"><i class="el-icon-ice-tea">{{logo}}</i></a>
+            <a class="logo" href="/home"><i class="el-icon-cherry" style="color: #487e95"> {{logo}}</i></a>
             <!-- 折叠菜单按钮 -->
             <div class="toggle"  @click="isCollapse = !isCollapse">
                 <i class="el-icon-s-unfold" v-if="isCollapse"></i>
@@ -12,11 +12,21 @@
             <!-- 下拉菜单 -->
             <el-dropdown @command="handleCommand">
               <span class="el-dropdown-link">
-                <i class="el-icon-user el-icon--left"></i>
+                <i class="el-icon-user el-icon--left" style="color: #487e95"></i>
               </span>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item icon="el-icon-switch-button" command="a">个人资料</el-dropdown-item>
+<!--                    <el-dropdown-item icon="el-icon-switch-button" command="a">个人资料</el-dropdown-item>-->
 <!--                    <el-dropdown-item icon="el-icon-switch-button" command="logout"><span @click="logout">注销</span></el-dropdown-item>-->
+                    <el-dropdown-item icon="el-icon-ice-tea">
+                        {{user.name}}
+                    </el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-pear">
+                        {{user.ntype}}
+                    </el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-mobile-phone">
+                        {{user.tel}}
+                    </el-dropdown-item>
+
                     <el-dropdown-item icon="el-icon-switch-button" command="e">注销</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
@@ -26,17 +36,19 @@
 <!--            active-text-color="rgb(64, 158, 255)"-->
 <!--            active-text-color="rgb(191, 203, 217)"-->
 <!--            background-color="rgb(48, 65, 86)"-->
+<!--            background-color="#2B2C3E"-->
+<!--            text-color="rgb(191, 203, 217)"-->
+
             <el-aside width="auto">
                 <el-menu
                         :collapse="isCollapse"
                         class="el-menu-vertical"
-                        background-color="#2B2C3E"
-                        text-color="rgb(191, 203, 217)"
+                        :default-openeds="openeds"
                         active-text-color="rgb(64, 158, 255)"
                 >
                     <!--v-for尽量写在自己的div里-->
                     <div v-for="(item,index) in menuList" :key="index">
-                    <el-submenu :index="index.toString()" v-if="index>0&&item.xgMenuList.length!=0">
+                    <el-submenu :index="index.toString()" v-if="index>=0&&item.xgMenuList.length!=0">
                         <template slot="title">
                             <i :class="item.icon" style="padding-right: 20px"></i>
                             <span slot="title">{{item.mname}}</span>
@@ -48,7 +60,7 @@
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
-                    <el-menu-item :index="index.toString()" @click="goto(item.murl)" v-if="index!=0&&item.xgMenuList.length==0">
+                    <el-menu-item :index="index.toString()" @click="goto(item.murl)" v-if="index>=0&&item.xgMenuList.length==0">
                         <i :class="item.icon" style="padding-right: 20px"></i>
                         <span slot="title">{{item.mname}}</span>
                     </el-menu-item>
@@ -57,7 +69,6 @@
             </el-aside>
             <!-- 可以结合vue-router路由嵌套实现页面的跳转与显示 -->
             <el-main class="main">
-                <div style="opacity: 0.2" class="bg"></div>
                 <router-view></router-view>
             </el-main>
         </el-container>
@@ -73,8 +84,14 @@
     export default {
         data(){
             return {
+                openeds: ['0','1','2','3','4','5','6','7','8','9','10'],
+                user:{
+                    name:localStorage.getItem("name"),
+                    tel:localStorage.getItem("tel"),
+                    ntype:localStorage.getItem("ntype")
+                },
                 isCollapse:true,
-                logo:'',
+                logo:'XinGuan',
                 loading:true,
                 menuList:'',
             }
@@ -118,8 +135,9 @@
             //     console.log(res.data)
             // });
             menuInfo(localStorage.getItem("nid")).then(res=>{
+                // console.log(res.data);
                 if(res.data != null){
-                    this.logo=res.data[0].mname;
+                    // this.logo=res.data[0].mname;
                     this.menuList = res.data;
                 }else {
                     this.$message({
@@ -152,15 +170,18 @@
     .el-header{
         /* 上层显示，避免被Main和Aside遮挡 */
         /*background-color:rgb(48, 65, 86) ;*/
-        background-color: #2B2C3E;
+        /*background-color: #2B2C3E;*/
+        /*background-color: #eee;*/
+        /*color: #487e95;*/
+        /*box-shadow: 0 1px 20px rgba(0,0,0,0.1);*/
         z-index: 999;
     }
     .el-aside{
         /*background-color: rgb(48, 65, 86);*/
-        background-color: #2B2C3E;
+        /*background-color: #2B2C3E;*/
     }
     .el-main{
-        background-color: #eee;
+        /*background-color: #eee;*/
     }
     /* 去除菜单右侧边框 */
     .el-menu{
